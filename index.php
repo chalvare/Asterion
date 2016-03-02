@@ -59,7 +59,7 @@
                   <li><a href="#">Another action</a></li>
                   <li><a href="#">Something else more</a></li>
                   <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav headerr</li>
+                  <li class="dropdown-header">Nav header</li>
                   <li><a href="#">Separated link</a></li>
                   <li><a href="#">Cerrar Sesión</a></li>
                 </ul>
