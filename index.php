@@ -29,7 +29,7 @@
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/npm.js"></script>-->
 	
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
+	<link href="index/style.css" rel="stylesheet">
 
 
 </head>
@@ -50,8 +50,8 @@
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="#about">Guía</a></li>
+              <li><a href="personajes.php">Personajes</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
                 <ul class="dropdown-menu">
