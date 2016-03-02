@@ -1,0 +1,21 @@
+.navbar {
+	position:relative;
+	min-height:50px;
+	margin-bottom:0px;
+	border:1px solid transparent;
+}
+
+.caracteristicas {
+	width: 40%;
+	margin-top: 20px;
+}
+
+.caracteristicas td{
+	font-weight: 700;
+	width: 30%;
+	text-align: center;
+}
+
+.textoPersonaje{
+	margin-top: 20px;
+}
