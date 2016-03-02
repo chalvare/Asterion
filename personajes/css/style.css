@@ -1,3 +1,4 @@
+
 .navbar {
 	position:relative;
 	min-height:50px;
@@ -6,16 +7,29 @@
 }
 
 .caracteristicas {
-	width: 40%;
+	width: 80%;
+	height: 300px;
 	margin-top: 20px;
+	
 }
-
+.caracteristicas th{
+	text-align: center;
+	font-size: 26px;
+	color: rgba(38, 38, 164, 0.88);
+	font-weight: 900;
+}
 .caracteristicas td{
 	font-weight: 700;
 	width: 30%;
 	text-align: center;
+	padding:300px;
 }
 
 .textoPersonaje{
 	margin-top: 20px;
+}
+
+.imagepj{
+	margin-left: 150px;
+	
 }

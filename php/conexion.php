@@ -21,6 +21,7 @@
 			
 			$fila = mysql_fetch_array($resultado);
 			//echo "<script language='JavaScript'>alert('Grabacion Correcta');</script>"; 
+			
 			return $fila;
 
 		}

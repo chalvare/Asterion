@@ -45,13 +45,13 @@
 	<nav class="navbar navbar-inverse">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Asterion</a>
+            <a class="navbar-brand" href="index.php">Asterion</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li><a href="index.php">Home</a></li>
               <li><a href="#about">Guía</a></li>
-              <li><a href="#contact">Personajes</a></li>
+              <li class="active"><a href="personajes.php">Personajes</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -73,7 +73,7 @@
 	<!------------------------------->
 	<div class="jumbotron">
 	<div class="container">
-		<h1>Personajes</h1>
+		<h1>Chars</h1>
 		<p>
 			He visto las mejores mentes de mi generación destruidas por la locura. Histéricos famélicos muertos de hambre arrastrándose por las calles, negros al amanecer buscando una dosis furiosa. Cabezas de ángel abrasadas por la antigua conexión celestial al dínamo estrellado de la maquinaria de la noche, quienes pobres y andrajosos y con ojos cavernosos y altos se levantaron fumando en la oscuridad sobrenatural de los departamentos con agua fría flotando a través de las alturas de las ciudades contemplando el jazz.
 		</p>
@@ -87,93 +87,136 @@
 			<!-----------Izquierda----------->
 			<!------------------------------->
 		<?php
-
 		include ("php/conexion.php");
 		$Con = new conexion();
-		$val;
+		
+		
 		if (isset($_POST['submit'])) {
 		
 			$pjs = $_POST['pjs'];
 			$personaje=$Con -> recuperarPersonaje($pjs);
 			//echo "<script language='JavaScript'>alert($personaje[1]);</script>";
-		
-		
-		
 			echo "<div class='col-sm-6'>";
-			echo "<img src='images/personajes/$personaje[0].jpg' class='img-rounded img-responsive' alt='$personaje[1]' width='346' height='600'>";
+			echo "<img src='images/personajes/$personaje[0].jpg' class='img-rounded img-responsive imagepj' alt='$personaje[1]' width='346' height='600'>";
 			echo "</div>";
-			//<!-----------Derecha------------->
-			//<!------------------------------->
-			echo "<div class='col-sm-6'>";
-			echo "<form class='form-inline' action='personajes.php' method='post' >";
-			echo "<label for='pjs'>Personaje</label>";
-			echo "<select class='form-control' name='pjs'>";
-			echo "<option value='1'>Cruzado</option>";
-			echo "<option value='2'>2</option>";
-			echo "<option value='3'>3</option>";
-			echo "<option value='4'>4</option>";
-			echo "<option value='5'>4</option>";
-			echo "</select>";
-			echo "<input type='submit' name='submit' class='btn btn-primary'>";
-			echo "</form>";
-			echo "<p class='textoPersonaje'> $personaje[9] </p>";
+			
 		
+		}else{
+			echo "<div class='col-sm-6'>";
+			echo "<img src='images/personajes/1.jpg' class='img-rounded img-responsive imagepj' alt='Cruzado' width='346' height='600'>";
+			echo "</div>";
+			
 		}
-
-
+		
 		?>
+		<!-----------Derecha------------->
+		<!------------------------------->
+			<div class='col-sm-6'>
+			<form class='form-horizontal' action='personajes.php' method='post' >
+			<!--<label for='pjs'>Personaje: </label>-->
+				<div class="form-group">
+					<h2><span class="col-sm-3 label label-primary">Personaje: </span></h2>
+				<div class="col-sm-3">
+					<select class='form-control' name='pjs'>
+						<option value='1'>Crusader</option>
+						<option value='2'>Ranger</option>
+						<option value='3'>Archer</option>
+						<option value='4'>Warrior</option>
+						<option value='5'>Mage</option>
+						<option value='6'>Elemental</option>
+					</select>
+				</div>
+				<input type='submit' name='submit' value="Seleccionar" class='btn btn-primary'>  
+				</div>
+			</form>
 
+		<?php
+			if (isset($_POST['submit'])) {
+				$texto=utf8_encode($personaje[9]);
+				echo "<h3>$personaje[1]</h3><p class='textoPersonaje'> $texto </p>";
+				echo "<div class='table-responsive'>";
+				echo "<table class='table caracteristicas'>";
+					echo "<thead>";
+						echo "<tr>";
+							echo "<th>$personaje[1]</th>";
+							echo "<th>Valor</th>";
+						echo "</tr>";
+					echo "</thead>";
+					echo "<tbody>";
+					 // <!-- Aplicadas en las filas -->
+					  echo "<tr class='info'>";
+						echo "<td>Inteligencia</td>";
+					    echo "<td>$personaje[2]</td>";
+					  echo "</tr>";
+					  echo "<tr class='info'>";
+						echo "<td>Técnicas</td>";
+					    echo "<td>$personaje[3]</td>";
+					  echo "</tr>";
+					  echo "<tr class='info'>";
+						echo "<td>Grupo</td>";
+					    echo "<td>$personaje[4]</td>";
+					  echo "</tr>";
+					  echo "<tr class='info'>";
+						echo "<td>Constancia</td>";
+					    echo "<td>$personaje[5]</td>";
+					  echo "</tr>";
+					  echo "<tr class='info'>";
+						echo "<td>Organización</td>";
+					    echo "<td>$personaje[6]</td>";
+					  echo "</tr>";
+					  echo "<tr class='info'>";
+						echo "<td >Suerte</td>";
+					    echo "<td >$personaje[7]</td>";
+					  echo "</tr>";
+					echo "</tbody>";
+				echo "</table>";
+			echo "</div>";
+		
+			}else{
+				echo "<h3>Char</h3><p class='textoPersonaje'> He visto las mejores mentes de mi generación destruidas por la locura. Histéricos famélicos muertos de hambre arrastrándose por las calles, negros al amanecer buscando una dosis furiosa. Cabezas de ángel abrasadas por la antigua conexión celestial al dínamo estrellado de la maquinaria de la noche, quienes pobres y andrajosos y con ojos cavernosos y altos se levantaron fumando en la oscuridad sobrenatural de los departamentos con agua fría flotando a través de las alturas de las ciudades contemplando el jazz.</p>";
+				echo "<div class='table-responsive'>";
+				echo "<table class='table caracteristicas'>";
+					echo "<thead>";
+						echo "<tr>";
+							echo "<th>Char</th>";
+							echo "<th>Valor</th>";
+						echo "</tr>";
+					echo "</thead>";
+					echo "<tbody>";
+					 // <!-- Aplicadas en las filas -->
+					  echo "<tr class='info'>";
+						echo "<td >Inteligencia</td>";
+					    echo "<td >5</td>";
+					  echo "</tr>";
+					  echo "<tr class='info'>";
+						echo "<td>Técnicas</td>";
+					    echo "<td>3</td>";
+					  echo "</tr>";
+					  echo "<tr class='info'>";
+						echo "<td>Grupo</td>";
+					    echo "<td>4</td>";
+					  echo "</tr>";
+					  echo "<tr class='info'>";
+						echo "<td>Constancia</td>";
+					    echo "<td>9</td>";
+					  echo "</tr>";
+					  echo "<tr class='info'>";
+						echo "<td>Organización</td>";
+					    echo "<td>2</td>";
+					  echo "</tr>";
+					  echo "<tr class='info'>";
+						echo "<td >Suerte</td>";
+					    echo "<td >7</td>";
+					  echo "</tr>";
+					echo "</tbody>";
+				echo "</table>";
+			echo "</div>";//fin table-responsive
+			}
+		?>
+		</div><!--div cierre dech-->
 
-
-			<div class="table-responsive">
-				<table class="table caracteristicas">
-					<thead>
-						<tr>
-							<th>Cruzado</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-					  <!-- Aplicadas en las filas -->
-					  <tr class="success">
-						<td class="success">Inteligencia</td>
-					    <td class="info">5</td>
-					  </tr>
-					  <tr class="success">
-						<td class="success">Técnicas</td>
-					    <td class="info">3</td>
-					  </tr>
-					  <tr class="success">
-						<td class="success">Grupo</td>
-					    <td class="info">4</td>
-					  </tr>
-					  <tr class="success">
-						<td class="success">Constancia</td>
-					    <td class="info">9</td>
-					  </tr>
-					  <tr class="success">
-						<td class="success">Organización</td>
-					    <td class="info">2</td>
-					  </tr>
-					  <tr class="success">
-						<td class="success">Suerte</td>
-					    <td class="info">7</td>
-					  </tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
 	</div>
 	</div>
-
-
-
-
-
-
-
-
-
 
 
 </body>

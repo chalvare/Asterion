@@ -45,11 +45,11 @@
 	<nav class="navbar navbar-inverse">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Asterion</a>
+            <a class="navbar-brand" href="index.php">Asterion</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="index.php">Home</a></li>
               <li><a href="#about">Guía</a></li>
               <li><a href="personajes.php">Personajes</a></li>
               <li class="dropdown">
