@@ -1,6 +1,6 @@
 body {
 
-  background-image: url(../images/asterion.jpg);
+  background-image: url(../images/asterio.jpg);
   
   /*Que la imagen este centrada siempre */
   background-position: center center;
@@ -18,4 +18,16 @@ body {
   background-color:#464646;
   
    
+}
+
+.sinPermiso{
+	text-align:center;
+	margin-top: 100px;
+	color:#fff;
+	
+}
+
+.sinPermiso a{
+	font-weight: 700;
+	color:#59B2E0;
 }

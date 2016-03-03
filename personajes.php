@@ -97,13 +97,13 @@
 			$personaje=$Con -> recuperarPersonaje($pjs);
 			//echo "<script language='JavaScript'>alert($personaje[1]);</script>";
 			echo "<div class='col-sm-6'>";
-			echo "<img src='images/personajes/$personaje[0].jpg' class='img-rounded img-responsive imagepj' alt='$personaje[1]' width='346' height='600'>";
+			echo "<img src='images/personajes/0$personaje[0].jpg' class='img-rounded img-responsive imagepj' alt='$personaje[1]' width='346' height='600'>";
 			echo "</div>";
 			
 		
 		}else{
 			echo "<div class='col-sm-6'>";
-			echo "<img src='images/personajes/1.jpg' class='img-rounded img-responsive imagepj' alt='Cruzado' width='346' height='600'>";
+			echo "<img src='images/personajes/01.jpg' class='img-rounded img-responsive imagepj' alt='Cruzado' width='346' height='600'>";
 			echo "</div>";
 			
 		}
