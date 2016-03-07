@@ -32,6 +32,19 @@
 	<link href="personajes/css/style.css" rel="stylesheet">
 
 
+<script>
+		
+	$(document).ready(function() {
+            $('#selPj').on('change', function() {
+               var $form = $(this).closest('form');
+			   $form.find('input[type=submit]').click();
+            });
+        });
+        
+     
+</script>
+
+
 </head>
 
 
@@ -91,8 +104,7 @@
 		$Con = new conexion();
 		
 		
-		if (isset($_POST['submit'])) {
-		
+		if (isset($_POST['submit'])) {	
 			$pjs = $_POST['pjs'];
 			$personaje=$Con -> recuperarPersonaje($pjs);
 			//echo "<script language='JavaScript'>alert($personaje[1]);</script>";
@@ -112,12 +124,13 @@
 		<!-----------Derecha------------->
 		<!------------------------------->
 			<div class='col-sm-6'>
-			<form class='form-horizontal' action='personajes.php' method='post' >
+			<form id="myForm" class='form-horizontal' action='personajes.php' method='post' >
 			<!--<label for='pjs'>Personaje: </label>-->
 				<div class="form-group">
 					<h2><span class="col-sm-3 label label-primary">Personaje: </span></h2>
 				<div class="col-sm-3">
-					<select class='form-control' name='pjs'>
+					<select id="selPj" class='form-control' name='pjs'>
+						<option value='0'></option>
 						<option value='1'>Crusader</option>
 						<option value='2'>Ranger</option>
 						<option value='3'>Archer</option>
@@ -126,7 +139,7 @@
 						<option value='6'>Elemental</option>
 					</select>
 				</div>
-				<input type='submit' name='submit' value="Seleccionar" class='btn btn-primary'>  
+				<input type='submit' name='submit' value="Seleccionar" class='btn btn-primary botonSubmitPj'>  
 				</div>
 			</form>
 

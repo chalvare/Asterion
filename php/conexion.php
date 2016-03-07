@@ -79,24 +79,26 @@ class conexion{
 	}
 
 
-	function mostrarCincoPrimeras(){
-		$host = "tot.fdi.ucm.es";
-		$user = "parable";
-		$pw = "parable1516";
-		$db = "parable";
+	function mostrarMejoras(){
+		$host = "localhost";
+		$user = "valaryen";
+		$pw = "passval";
+		$db = "asterion";
 
-		$con = mysql_connect($host, $user, $pw) or die("No se pudo conectar a la base de datos ");
-		mysql_select_db($db, $con) or die ("No se encontro la base de datos. ");
-		$query = "SELECT * FROM historia ORDER BY id DESC LIMIT 3";
-		$resultado = mysql_query($query);
-		echo "<table>";
-		while ($fila = mysql_fetch_array($resultado)) {
-			echo " <tr>";
-			echo "<td> $fila[nombre]  </td> <td> $fila[texto] </td> <br> ";
-			echo " </tr> ";
+		$con = mysqli_connect($host, $user, $pw, $db) or die("No se pudo conectar a la base de datos ");
+		
+		$query = "SELECT * FROM mejoras";
+		$resultado = mysqli_query($con,$query);
+		
+		if(mysqli_num_rows($resultado)>0){
+			$con->close();	
+			return $resultado;
+		}else{
+			die("no hay mejoras que mostrar ");
 		}
-		echo "</table>";
+		$con->close();	
 	}
+	
 	function mostrarNombre($nombre){
 		$host = "tot.fdi.ucm.es";
 		$user = "parable";

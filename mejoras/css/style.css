@@ -1,0 +1,16 @@
+.tituloMejoras{
+	text-align: center;
+}
+
+.tablaMejoras th{
+	text-align: center;
+	font-size: 26px;
+	color: #59B2E0;
+	font-weight: 900;
+}
+.tablaMejoras td{
+	font-weight: 700;
+	width: 30%;
+	text-align: center;
+	padding:300px;
+}
