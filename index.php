@@ -34,7 +34,7 @@
 		<?php
 			session_start();
 			if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
-			
+			//echo "<script language='JavaScript'>alert('".$_SESSION['identificador']."');</script>";
 			}else{
 				echo"<div class='container sinPermiso'><div class='starter-template'><h1>Esta pagina es solo para usuarios registrados.</h1>
 				<p class='lead'><a href='register.php'>¡Registrate con nosotros!</a></p></div></div>";

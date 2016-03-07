@@ -40,19 +40,22 @@ class conexion{
 		mysql_select_db($db, $con) or die ("No se encontro la base de datos. ");
 		$sql= "SELECT * FROM user WHERE nombre='$nombre' AND pass='$pass'";
 		$result=mysql_query($sql);
+		$fila = mysql_fetch_array($result);
+		//echo "<script language='JavaScript'>alert('$fila[0]');</script>";
 		$count = mysql_num_rows($result);
 		if($count == 1){
 		     $_SESSION['loggedin'] = true;
 			 $_SESSION['username'] = $nombre;
 			 $_SESSION['start'] = time();
 			 $_SESSION['expire'] = $_SESSION['start'] + (5 * 60) ;
+			 $_SESSION['identificador']=$fila[0];
 			 //echo "Bienvenido! " . $_SESSION['username']. session_id();
 			 //echo "<script language='JavaScript'>alert('asdasas');</script>";
 			 header("location:index.php");
 		}else {
 			echo "<script language='JavaScript'>alert('Username o Password son incorrectos.');</script>";
 		}
-		$con->close();
+		
 	}
 	
 	function registrarUsuario($nombre, $pass, $email){

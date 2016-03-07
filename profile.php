@@ -29,9 +29,21 @@
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/npm.js"></script>-->
 
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="personajes/css/style.css" rel="stylesheet">
+	<link href="profile/css/style.css" rel="stylesheet">
+	<script>
+	$('#myfile').change(function(){
+		$('#path').val($(this).val());
+	});
+	</script>
 
-
+	<script>
+	$(document).ready(function(){
+		$("#tablaMejoras").on('click','#botonComprar',function() {
+	    var borrarTr = $(this).closest("tr");
+	    borrarTr.remove();      
+		});
+	});
+	</script>
 </head>
 
 
@@ -41,7 +53,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
    	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 
-
+  
 	<nav class="navbar navbar-inverse">
         <div class="container">
           <div class="navbar-header">
@@ -67,68 +79,39 @@
 	        </ul>
           </div><!--/.nav-collapse -->
         </div>
-      </nav>
-
-	<!-----------Jumbotron----------->
-	<!------------------------------->
-	<div class="jumbotron">
+    </nav>
+	
+	
+		
 	<div class="container">
-		<h1>Personajes</h1>
-		<p>
-			He visto las mejores mentes de mi generación destruidas por la locura. Histéricos famélicos muertos de hambre arrastrándose por las calles, negros al amanecer buscando una dosis furiosa. Cabezas de ángel abrasadas por la antigua conexión celestial al dínamo estrellado de la maquinaria de la noche, quienes pobres y andrajosos y con ojos cavernosos y altos se levantaron fumando en la oscuridad sobrenatural de los departamentos con agua fría flotando a través de las alturas de las ciudades contemplando el jazz.
-		</p>
-	</div>
-	</div>
-
-	<!-----------Contenido----------->
-	<!------------------------------->
-	<div class="container">
-	<div class="row">
-			<!-----------Izquierda----------->
-			<!------------------------------->
-		<?php
-		include ("php/conexion.php");
-		$Con = new conexion();
-		
-		
-		if (isset($_POST['submit'])) {
-		
-			$pjs = $_POST['pjs'];
-			$personaje=$Con -> recuperarPersonaje($pjs);
-			//echo "<script language='JavaScript'>alert($personaje[1]);</script>";
-			echo "<div class='col-sm-6'>";
-			echo "<img src='images/personajes/$personaje[0].jpg' class='img-rounded img-responsive imagepj' alt='$personaje[1]' width='346' height='600'>";
-			echo "</div>";
-			
-		
-		}else{
-			echo "<div class='col-sm-6'>";
-			echo "<img src='images/personajes/1.jpg' class='img-rounded img-responsive imagepj' alt='Cruzado' width='346' height='600'>";
-			echo "</div>";
-			
-		}
-		
-		?>
-		<!-----------Derecha------------->
-		<!------------------------------->
-			<div class='col-sm-6'>
-			<form class='form-horizontal' action='personajes.php' method='post' >
-			<!--<label for='pjs'>Personaje: </label>-->
-				<div class="form-group">
-					<h2><span class="col-sm-3 label label-primary">Personaje: </span></h2>
-				<div class="col-sm-3">
-					<select class='form-control' name='pjs'>
-						<option value='1'>Crusader</option>
-						<option value='2'>Ranger</option>
-						<option value='3'>Archer</option>
-						<option value='4'>Warrior</option>
-						<option value='5'>Mage</option>
-						<option value='6'>Elemental</option>
-					</select>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="tituloPerfil">
+					<h1>PERFIL DE USUARIO</h1>
 				</div>
-				<input type='submit' name='submit' value="Seleccionar" class='btn btn-primary'>  
+			</div>
+		</div><!--Row portada-->
+		<div class="row row1">
+			<div class="col-sm-4">
+				<img src="images/usuarios/asterion.jpg" class="img-circle" width='250' height='250'>
+				<form role="form" class="form-horizontal formImagen" method="post" action="file.php" enctype="multipart/form-data">
+					<div class="form-group">
+						<input type="file" name="archivo" id="archivo" class="btn btn-primary"/>
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Submit" name="submit" class="btn btn-primary">
+					</div>
+				</form>
+			</div><!--columna izq-->
+			
+			<div class="col-sm-8">
+				
+				
+				<div class='col-sm-6'>
+				<img src='images/personajes/1.jpg' class='img-rounded img-responsive' alt='Cruzado' width='262' height='450'>
 				</div>
-			</form>
+				
+				<div class='col-sm-6'>
 
 		<?php
 			if (isset($_POST['submit'])) {
@@ -173,7 +156,11 @@
 			echo "</div>";
 		
 			}else{
-				echo "<h3>Char</h3><p class='textoPersonaje'> He visto las mejores mentes de mi generación destruidas por la locura. Histéricos famélicos muertos de hambre arrastrándose por las calles, negros al amanecer buscando una dosis furiosa. Cabezas de ángel abrasadas por la antigua conexión celestial al dínamo estrellado de la maquinaria de la noche, quienes pobres y andrajosos y con ojos cavernosos y altos se levantaron fumando en la oscuridad sobrenatural de los departamentos con agua fría flotando a través de las alturas de las ciudades contemplando el jazz.</p>";
+				
+				echo"<p class='lead datosPerfil'>Christian</p>";
+				echo"<p class='lead'>Nivel: 187</p>";  
+				echo"<p class='lead'>Puntos: 2031</p>";
+				
 				echo "<div class='table-responsive'>";
 				echo "<table class='table caracteristicas'>";
 					echo "<thead>";
@@ -213,10 +200,89 @@
 			echo "</div>";//fin table-responsive
 			}
 		?>
-		</div><!--div cierre dech-->
+		</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			</div><!--columna derecha-->	
+		</div><!--Row 1-->
+		
+		<div class="row">
+			<div class="col-sm-12">
+			<table id="tablaMejoras"class="table table-hover tablaCompras">
+				<thead>
+					<th>Nombre</th>
+					<th>Tipo</th>
+					<th>Mejora</th>
+					<th>Cantidad</th>
+					<th>Total</th>
+				</thead>
+				<tr>
+					<td>Libro</td>
+					<td>Estudio</td>
+					<td>2</td>
+					<td>4</td>
+					<!--<td><button id="botonComprar" type="button" class="btn btn-primary">Compra</button></td>-->
+					<td>8</td>
+				</tr>
+				<tr>
+					<td>Biblioteca</td>
+					<td>Organización</td>
+					<td>4</td>
+					<td>3</td>
+					<!--<td><button  id="botonComprar" type="button" class="btn btn-primary">Compra</button></td>-->
+					<td>12</td>
+				</tr>
 
-	</div>
-	</div>
+				<tr>
+					<td>Practica</td>
+					<td>Inteligencia</td>
+					<td>1</td>
+					<td>5</td>
+					<!--<td><button  id="botonComprar" type="button" class="btn btn-primary">Compra</button></td>-->
+					<td>5</td>
+				</tr>
+
+			
+			</table>
+			</div>
+		</div><!--Row 2-->
+		
+	</div><!--Container-->	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+		
+		
 
 
 </body>
