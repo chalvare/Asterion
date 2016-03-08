@@ -203,18 +203,6 @@
 		</div>
 				
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 			</div><!--columna derecha-->	
 		</div><!--Row 1-->
 		

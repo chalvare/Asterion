@@ -32,7 +32,7 @@
 	<link href="mejoras/css/style.css" rel="stylesheet">
 
 		<?php
-			/*session_start();
+			session_start();
 			if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
 			//echo "<script language='JavaScript'>alert('".$_SESSION['identificador']."');</script>";
 			}else{
@@ -48,14 +48,21 @@
 				echo"<div class='container sinPermiso'><div class='starter-template'><h1>Tu sesión ha expirado</h1>
 				<p class='lead'><a href='register.php'>Identifícate de nuevo</a></p></div></div>";
 				exit;
-			}*/
+			}
 		?>
 		
-		<script>
+	<script>
 	$(document).ready(function(){
 		$("#tablaMejoras").on('click','#botonComprar',function() {
 	    var borrarTr = $(this).closest("tr");
 	    borrarTr.remove();      
+		});
+	});
+	
+	$(document).ready(function(){
+		$('formMejoras').on('click',function(){
+			var valor = $('#prueba').val();
+			alert(valor);
 		});
 	});
 	</script>
@@ -67,6 +74,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
    	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+
+
+   	<?php
+		// sent from form
+		include("php/conexion.php");
+		if (isset($_POST['submitMejora'])) {
+			$idCompra = $_POST['idCompra'];
+			$idSession = $_SESSION['identificador'];
+			$Con=new conexion();					
+			$Con->guardarMejora($idCompra,$idSession);	
+		}
+								
+								
+	?>
+
 
 	<nav class="navbar navbar-inverse">
         <div class="container">
@@ -100,24 +122,9 @@
 		  <div class="row">
 			  <h1 class="tituloMejoras">Mejoras</h1>
 			  <?php
-				  include("php/conexion.php");
 				  $Con = new conexion();
-				  $resultado = $Con -> mostrarMejoras();
-				  echo"<div class='table-responsive'>";
-				  echo"<table id='tablaMejoras' class='table tablaMejoras'>";
-				  echo"<th>Nombre</th>";
-				  echo"<th>Incremento</th>";
-				  echo"<th>Precio</th>";
-				   echo"<th>Comprar</th>";
-				  while ($fila = mysqli_fetch_array($resultado)) {
-						echo " <tr>";
-						echo "<td> $fila[nombre]  </td> <td> $fila[valor] </td><td>$fila[precio] Studys</td> 
-						<td><button  id='botonComprar' type='button' class='btn btn-primary'>Compra</button></td><br> ";
-						echo " </tr> ";
-					}
-				 
-				  echo"</table>";
-				  echo"</div>";
+				  $Con -> mostrarMejoras();
+				  
 			?>
 			  
 			  
