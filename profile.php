@@ -85,9 +85,12 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="index.php">Home</a></li>
+              <li class="active"><a href="index.php">Home</a></li>
               <li><a href="#about">Guía</a></li>
-              <li class="active"><a href="personajes.php">Personajes</a></li>
+              <li><a href="personajes.php">Personajes</a></li>
+              <li><a href="mejoras.php">Comprar Mejoras</a></li>
+              <li><a href="profile.php">Perfil</a></li>
+              <li><a href="register.php">Login/Registro</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -103,7 +106,7 @@
 	        </ul>
           </div><!--/.nav-collapse -->
         </div>
-    </nav>
+      </nav>
 	
 	
 		
