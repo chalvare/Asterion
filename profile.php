@@ -44,6 +44,30 @@
 		});
 	});
 	</script>
+	
+	
+	<?php
+		session_start();
+		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
+		//echo "<script language='JavaScript'>alert('".$_SESSION['identificador']."');</script>";
+		}else{
+			echo"<div class='container sinPermiso'><div class='starter-template'><h1>Esta pagina es solo para usuarios registrados.</h1>
+			<p class='lead'><a href='register.php'>¡Registrate con nosotros!</a></p></div></div>";
+			exit;
+		}
+		$now = time(); // checking the time now when home page starts
+			
+		if($now > $_SESSION['expire'])
+		{
+			/*session_destroy();
+			echo"<div class='container sinPermiso'><div class='starter-template'><h1>Tu sesión ha expirado</h1>
+			<p class='lead'><a href='register.php'>Identifícate de nuevo</a></p></div></div>";
+			exit;*/
+		}
+	?>
+	
+	
+	
 </head>
 
 
@@ -93,8 +117,8 @@
 		</div><!--Row portada-->
 		<div class="row row1">
 			<div class="col-sm-4">
-				<img src="images/usuarios/asterion.jpg" class="img-circle" width='250' height='250'>
-				<form role="form" class="form-horizontal formImagen" method="post" action="file.php" enctype="multipart/form-data">
+				<?php echo"<img src=images/usuarios/".$_SESSION['identificador'].".jpg class='img-circle' width='250' height='250'>";?>
+				<form role="form" class="form-horizontal formImagen" method="post" action="php/file.php" enctype="multipart/form-data">
 					<div class="form-group">
 						<input type="file" name="archivo" id="archivo" class="btn btn-primary"/>
 					</div>
@@ -216,32 +240,13 @@
 					<th>Cantidad</th>
 					<th>Total</th>
 				</thead>
-				<tr>
-					<td>Libro</td>
-					<td>Estudio</td>
-					<td>2</td>
-					<td>4</td>
-					<!--<td><button id="botonComprar" type="button" class="btn btn-primary">Compra</button></td>-->
-					<td>8</td>
-				</tr>
-				<tr>
-					<td>Biblioteca</td>
-					<td>Organización</td>
-					<td>4</td>
-					<td>3</td>
+				
 					<!--<td><button  id="botonComprar" type="button" class="btn btn-primary">Compra</button></td>-->
-					<td>12</td>
-				</tr>
-
-				<tr>
-					<td>Practica</td>
-					<td>Inteligencia</td>
-					<td>1</td>
-					<td>5</td>
-					<!--<td><button  id="botonComprar" type="button" class="btn btn-primary">Compra</button></td>-->
-					<td>5</td>
-				</tr>
-
+				<?php
+					include("php/profileP.php");
+					$con = new profileP();
+					$con->mostrarMejorasPersonaje($_SESSION['identificador']);
+				?>
 			
 			</table>
 			</div>

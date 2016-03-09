@@ -44,10 +44,10 @@
 			
 			if($now > $_SESSION['expire'])
 			{
-				session_destroy();
+				/*session_destroy();
 				echo"<div class='container sinPermiso'><div class='starter-template'><h1>Tu sesión ha expirado</h1>
 				<p class='lead'><a href='register.php'>Identifícate de nuevo</a></p></div></div>";
-				exit;
+				exit;*/
 			}
 		?>
 		
@@ -78,11 +78,11 @@
 
    	<?php
 		// sent from form
-		include("php/conexion.php");
+		include("php/mejorasP.php");
 		if (isset($_POST['submitMejora'])) {
 			$idCompra = $_POST['idCompra'];
 			$idSession = $_SESSION['identificador'];
-			$Con=new conexion();					
+			$Con=new mejorasP();					
 			$Con->guardarMejora($idCompra,$idSession);	
 		}
 								
@@ -122,44 +122,15 @@
 		  <div class="row">
 			  <h1 class="tituloMejoras">Mejoras</h1>
 			  <?php
-				  $Con = new conexion();
+				  $Con=new mejorasP();
 				  $Con -> mostrarMejoras();
-				  
+				  //$Con-> pruebaSqlite();									  
 			?>
 			  
 			  
 		  </div><!--fin row-->
 	  </div><!--Fin container-->
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+           
       
 </body>
 </html>

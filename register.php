@@ -74,8 +74,8 @@
 			$username = $_POST['username'];
 			$password = $_POST['password'];
 								
-			include ("php/conexion.php");
-			$Con = new conexion();
+			include ("php/conexionP.php");
+			$Con = new conexionP();
 			$Con -> verificar_login($username,$password);
 		}
 								
@@ -88,8 +88,8 @@
 			$pass = $_POST['passwordR'];
 			$email = $_POST['emailR'];
 			if(isset($nombre)&&isset($pass)&&isset($email)){
-				include ("php/conexion.php");
-				$Con = new conexion();
+				include ("php/conexionP.php");
+				$Con = new conexionP();
 				$Con -> registrarUsuario($nombre, $pass, $email);
 			}
 		}

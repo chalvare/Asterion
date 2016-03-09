@@ -100,8 +100,8 @@
 			<!-----------Izquierda----------->
 			<!------------------------------->
 		<?php
-		include ("php/conexion.php");
-		$Con = new conexion();
+		include ("php/conexionP.php");
+		$Con = new conexionP();
 		
 		
 		if (isset($_POST['submit'])) {	
