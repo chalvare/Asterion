@@ -77,6 +77,8 @@
 			include ("php/conexionP.php");
 			$Con = new conexionP();
 			$Con -> verificar_login($username,$password);
+			
+
 		}
 								
 								

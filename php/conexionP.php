@@ -1,43 +1,22 @@
 <?php
 class conexionP{
 	
-	function recuperarPersonaje($pjs){
+	private function conexion(){
 		$host = "localhost";
-		$user = "valaryen";
-		$pw = "passval";
+		$user = "root";
+		$pw = "";		
 		$db = "asterion";
 
 		$con = mysqli_connect($host, $user, $pw, $db) or die("No se pudo conectar a la base de datos ");
-		
-		$query = "SELECT * FROM personajes WHERE id='$pjs'";
-		$resultado = mysqli_query($con, $query);
-		/*echo "<table>";
-			while ($fila = mysql_fetch_array($resultado)) {
-				echo " <tr>";
-				echo "<td> $fila[nombre]  </td> <td> $fila[texto] </td> <br> ";
-				echo " </tr> ";
-			}
-			echo "</table>";
-			*/
-
-		$fila = mysqli_fetch_array($resultado);
-		//echo "<script language='JavaScript'>alert('Grabacion Correcta');</script>";
-
-		return $fila;
-
+		return $con;
 	}
+	
 
 
 
 	function verificar_login($nombre,$pass){
 		session_start();
-		$host = "localhost";
-		$user = "valaryen";
-		$pw = "passval";
-		$db = "asterion";
-		
-		
-		$con = mysqli_connect($host, $user, $pw, $db) or die("No se pudo conectar a la base de datos ");
+		$con= $this->conexion();
 		
 		$sql= "SELECT * FROM user WHERE nombre='$nombre' AND pass='$pass'";
 		$result=mysqli_query($con, $sql);
@@ -52,6 +31,9 @@ class conexionP{
 			 $_SESSION['identificador']=$fila[0];
 			 //echo "Bienvenido! " . $_SESSION['username']. session_id();
 			 //echo "<script language='JavaScript'>alert('asdasas');</script>";
+			 
+			 $this-> actualizarDinero($con);
+			 
 			 header("location:index.php");
 		}else {
 			echo "<script language='JavaScript'>alert('Username o Password son incorrectos.');</script>";
@@ -60,27 +42,51 @@ class conexionP{
 	}
 	
 	function registrarUsuario($nombre, $pass, $email){
-		$host = "localhost";
-		$user = "valaryen";
-		$pw = "passval";
-		$db = "asterion";
-		$con = mysqli_connect($host, $user, $pw, $db) or die("No se pudo conectar a la base de datos ");
-	
-	    $sql="INSERT INTO user VALUES('NULL','".$nombre."','".$pass."','".$email."')";
-		
-		if (mysqli_query($con, $sql)) {
-		    //echo "<script language='JavaScript'>alert('bien creado');</script>";
-		    header("location:index.php");
-		} else {
-		    echo "Error: " . $sql . "<br>" . $con->error;
-		    echo "<script language='JavaScript'>alert('mal creado');</script>";
-		    header("location:register.php");
+		$con= $this->conexion();
+		$sqlComprobacion= "SELECT * FROM user WHERE nombre='$nombre'";
+		$result=mysqli_query($con, $sqlComprobacion);
+		$count = mysqli_num_rows($result);
+		if($count==0){
+			$time=time();
+		    $sql="INSERT INTO user VALUES('NULL','".$nombre."','".$pass."','".$email."','".$time."')";
+			
+			if (mysqli_query($con, $sql)) {
+			    //echo "<script language='JavaScript'>alert('bien creado');</script>";
+			    header("location:index.php");
+			} else {
+			    echo "Error: " . $sql . "<br>" . $con->error;
+			    echo "<script language='JavaScript'>alert('mal creado');</script>";
+			    header("location:register.php");
+			}
+		}else{
+			echo "<script language='JavaScript'>alert('Elige otro nombre. Ya esta registrado');</script>";
 		}
 		$con->close();
 	}
 
 
-	
+	function actualizarDinero($con){
+		$tiempoActual=time();
+		
+		$sql = "SELECT *  FROM user WHERE id=".$_SESSION['identificador'];
+		$ressql= mysqli_query($con,$sql);
+		$res = mysqli_fetch_array($ressql);
+		$tiempoGrabado = $res['tiempo'];
+			
+		$final = $tiempoActual-$tiempoGrabado;
+		$final = ((($final/60)/60)/24);//segundos/minutos/horas 
+		//$final = ($final/60); //para pruebas
+		//echo"<br>".$final;
+			
+		if($final>=24){//$final>=1 para pruebas
+			$sqlActualizar = "UPDATE user  SET tiempo=$tiempoActual WHERE id=".$_SESSION['identificador'];
+			$resActualizar = mysqli_query($con,$sqlActualizar);
+				
+			$sqlActualizar2 = "UPDATE usuarioPersonaje  SET studys=studys+100 WHERE idUsuario=".$_SESSION['identificador'];
+			$resActualizar2 = mysqli_query($con,$sqlActualizar2);
+		}
+
+	}
 	
 	
 	

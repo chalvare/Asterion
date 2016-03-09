@@ -135,97 +135,18 @@
 				
 				
 				<div class='col-sm-6'>
-				<img src='images/personajes/1.jpg' class='img-rounded img-responsive' alt='Cruzado' width='262' height='450'>
+				<?php
+					include("php/profileP.php");
+					$con = new profileP();
+					$con-> cargarImagen($_SESSION['identificador']);
+				?>
 				</div>
 				
 				<div class='col-sm-6'>
 
 		<?php
-			if (isset($_POST['submit'])) {
-				$texto=utf8_encode($personaje[9]);
-				echo "<h3>$personaje[1]</h3><p class='textoPersonaje'> $texto </p>";
-				echo "<div class='table-responsive'>";
-				echo "<table class='table caracteristicas'>";
-					echo "<thead>";
-						echo "<tr>";
-							echo "<th>$personaje[1]</th>";
-							echo "<th>Valor</th>";
-						echo "</tr>";
-					echo "</thead>";
-					echo "<tbody>";
-					 // <!-- Aplicadas en las filas -->
-					  echo "<tr class='info'>";
-						echo "<td>Inteligencia</td>";
-					    echo "<td>$personaje[2]</td>";
-					  echo "</tr>";
-					  echo "<tr class='info'>";
-						echo "<td>Técnicas</td>";
-					    echo "<td>$personaje[3]</td>";
-					  echo "</tr>";
-					  echo "<tr class='info'>";
-						echo "<td>Grupo</td>";
-					    echo "<td>$personaje[4]</td>";
-					  echo "</tr>";
-					  echo "<tr class='info'>";
-						echo "<td>Constancia</td>";
-					    echo "<td>$personaje[5]</td>";
-					  echo "</tr>";
-					  echo "<tr class='info'>";
-						echo "<td>Organización</td>";
-					    echo "<td>$personaje[6]</td>";
-					  echo "</tr>";
-					  echo "<tr class='info'>";
-						echo "<td >Suerte</td>";
-					    echo "<td >$personaje[7]</td>";
-					  echo "</tr>";
-					echo "</tbody>";
-				echo "</table>";
-			echo "</div>";
-		
-			}else{
-				
-				echo"<p class='lead datosPerfil'>Christian</p>";
-				echo"<p class='lead'>Nivel: 187</p>";  
-				echo"<p class='lead'>Puntos: 2031</p>";
-				
-				echo "<div class='table-responsive'>";
-				echo "<table class='table caracteristicas'>";
-					echo "<thead>";
-						echo "<tr>";
-							echo "<th>Char</th>";
-							echo "<th>Valor</th>";
-						echo "</tr>";
-					echo "</thead>";
-					echo "<tbody>";
-					 // <!-- Aplicadas en las filas -->
-					  echo "<tr class='info'>";
-						echo "<td >Inteligencia</td>";
-					    echo "<td >5</td>";
-					  echo "</tr>";
-					  echo "<tr class='info'>";
-						echo "<td>Técnicas</td>";
-					    echo "<td>3</td>";
-					  echo "</tr>";
-					  echo "<tr class='info'>";
-						echo "<td>Grupo</td>";
-					    echo "<td>4</td>";
-					  echo "</tr>";
-					  echo "<tr class='info'>";
-						echo "<td>Constancia</td>";
-					    echo "<td>9</td>";
-					  echo "</tr>";
-					  echo "<tr class='info'>";
-						echo "<td>Organización</td>";
-					    echo "<td>2</td>";
-					  echo "</tr>";
-					  echo "<tr class='info'>";
-						echo "<td >Suerte</td>";
-					    echo "<td >7</td>";
-					  echo "</tr>";
-					echo "</tbody>";
-				echo "</table>";
-			echo "</div>";//fin table-responsive
-			}
+			$con = new profileP();
+			$con-> cargarDatosPj($_SESSION['identificador']);
 		?>
 		</div>
 				
@@ -246,7 +167,6 @@
 				
 					<!--<td><button  id="botonComprar" type="button" class="btn btn-primary">Compra</button></td>-->
 				<?php
-					include("php/profileP.php");
 					$con = new profileP();
 					$con->mostrarMejorasPersonaje($_SESSION['identificador']);
 				?>

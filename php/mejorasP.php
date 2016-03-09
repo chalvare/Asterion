@@ -1,13 +1,21 @@
 <?php
 class mejorasP{
 	
-	function mostrarMejoras(){
+	
+	
+	private function conexion(){
 		$host = "localhost";
-		$user = "valaryen";
-		$pw = "passval";
+		$user = "root";
+		$pw = "";
 		$db = "asterion";
 
 		$con = mysqli_connect($host, $user, $pw, $db) or die("No se pudo conectar a la base de datos ");
+		return $con;
+	}
+	
+	
+	function mostrarMejoras(){
+		$con= $this->conexion();
 		
 		$query = "SELECT * FROM mejoras";
 		$resultado = mysqli_query($con,$query);
@@ -46,12 +54,7 @@ class mejorasP{
 	}
 	
 	function guardarMejora($idCompra,$idSession){
-		$host = "localhost";
-		$user = "valaryen";
-		$pw = "passval";
-		$db = "asterion";
-
-		$con = mysqli_connect($host, $user, $pw, $db) or die("No se pudo conectar a la base de datos ");
+		$con= $this->conexion();
 		
 		//echo"session". $idSession;
 		//echo"session". $idCompra;

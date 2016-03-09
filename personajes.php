@@ -103,8 +103,8 @@
 			<!-----------Izquierda----------->
 			<!------------------------------->
 		<?php
-		include ("php/conexionP.php");
-		$Con = new conexionP();
+		include ("php/personajesP.php");
+		$Con = new personajesP();
 		
 		
 		if (isset($_POST['submit'])) {	
@@ -177,7 +177,7 @@
 					    echo "<td>$personaje[5]</td>";
 					  echo "</tr>";
 					  echo "<tr class='info'>";
-						echo "<td>Organización</td>";
+						echo "<td>Estudio</td>";
 					    echo "<td>$personaje[6]</td>";
 					  echo "</tr>";
 					  echo "<tr class='info'>";
@@ -217,7 +217,7 @@
 					    echo "<td>9</td>";
 					  echo "</tr>";
 					  echo "<tr class='info'>";
-						echo "<td>Organización</td>";
+						echo "<td>Estudio</td>";
 					    echo "<td>2</td>";
 					  echo "</tr>";
 					  echo "<tr class='info'>";
