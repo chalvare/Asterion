@@ -93,11 +93,27 @@
 	  
 	  <div class="container">
 		  <div class="row">
-			  <h1 class="tituloMejoras">Asignaturas</h1>
+			  <h1 class="tituloAsignaturas">Asignaturas</h1>
 			  <?php
 				 include("php/asignaturasP.php");
 				  $Con=new asignaturasP();
-				  $Con -> mostrarAsignaturas();
+				  /*echo"<div class='row'>";
+				  $Con -> mostrarAsignaturas(1);
+				  echo"</div>";
+				  echo"<div class='row'>";
+				  $Con -> mostrarAsignaturas(2);
+				  echo"</div>";
+				  echo"<div class='row'>";
+				  $Con -> mostrarAsignaturas(3);
+				  echo"</div>";
+				  echo"<div class='row'>";
+				  $Con -> mostrarAsignaturas(4);
+				  echo"</div>";*/
+				  for($i=1;$i<=4;$i++){
+					  echo"<div class='row'>";
+					  $Con -> mostrarAsignaturas($i);
+					  echo"</div>";
+				  }
 				  //$Con-> pruebaSqlite();									  
 			?>
 			  
