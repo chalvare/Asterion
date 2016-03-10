@@ -33,7 +33,8 @@
 	<script>
 	
 	$(function() {
-	
+		//$("#success-alert").hide();
+		
 	    $('#login-form-link').click(function(e) {
 			$("#login-form").delay(100).fadeIn(100);
 	 		$("#register-form").fadeOut(100);
@@ -62,6 +63,23 @@
 		});
 	
 	});
+	
+	/*$(document).ready(function(){
+		 $("#success-alert").hide();
+	});*/
+	
+	$(document).ready(function() {
+		$("#success-alert").hide();
+		$('#login-submit').on('click',function showAlert() {
+			$('#success-alert').alert();
+			$('#success-alert').fadeTo(2000, 100).slideUp(500, function(){
+			$('#success-alert').alert('close');
+			});   
+		});
+	});
+
+ 	
+	
 	</script>
 
 </head>
@@ -71,6 +89,7 @@
 		<?php
 		// sent from form
 		if (isset($_POST['login-submit'])) {
+			
 			$username = $_POST['username'];
 			$password = $_POST['password'];
 								
@@ -112,7 +131,7 @@
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li class="active"><a href="index.php">Home</a></li>
-              <li><a href="#about">Guía</a></li>
+              <li><a href="php/logout.php">logout</a></li>
               <li><a href="personajes.php">Personajes</a></li>
               <li><a href="mejoras.php">Comprar Mejoras</a></li>
               <li><a href="profile.php">Perfil</a></li>
@@ -201,6 +220,12 @@
 									</div>
 								</form>
 								
+								<!--<div class="alert alert-success" id="success-alert">
+							    <button type="button" class="close" data-dismiss="alert">x</button>
+							    <strong>Success! </strong>
+							    	Product have added to your wishlist.
+								</div>
+								-->
 							</div>
 						</div>
 					</div>
@@ -209,6 +234,7 @@
 		</div>
 	</div>  
       
+   
       
       
       

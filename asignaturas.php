@@ -29,45 +29,28 @@
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/npm.js"></script>-->
 
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="profile/css/style.css" rel="stylesheet">
-	<script>
-		$('#myfile').change(function(){
-			$('#path').val($(this).val());
-		});
-	</script>
+	<link href="asignaturas/css/style.css" rel="stylesheet">
 
-	<script>
-	$(document).ready(function(){
-		$("#tablaMejoras").on('click','#botonComprar',function() {
-	    var borrarTr = $(this).closest("tr");
-	    borrarTr.remove();      
-		});
-	});
-	</script>
-	
-	
-	<?php
-		session_start();
-		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
-		//echo "<script language='JavaScript'>alert('".$_SESSION['identificador']."');</script>";
-		}else{
-			echo"<div class='container sinPermiso'><div class='starter-template'><h1>Esta pagina es solo para usuarios registrados.</h1>
-			<p class='lead'><a href='register.php'>¡Registrate con nosotros!</a></p></div></div>";
-			exit;
-		}
-		$now = time(); // checking the time now when home page starts
+		<?php
+			session_start();
+			if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
+			//echo "<script language='JavaScript'>alert('".$_SESSION['identificador']."');</script>";
+			}else{
+				echo"<div class='container sinPermiso'><div class='starter-template'><h1>Esta pagina es solo para usuarios registrados.</h1>
+				<p class='lead'><a href='register.php'>¡Registrate con nosotros!</a></p></div></div>";
+				exit;
+			}
+			$now = time(); // checking the time now when home page starts
 			
-		if($now > $_SESSION['expire'])
-		{
-			/*session_destroy();
-			echo"<div class='container sinPermiso'><div class='starter-template'><h1>Tu sesión ha expirado</h1>
-			<p class='lead'><a href='register.php'>Identifícate de nuevo</a></p></div></div>";
-			exit;*/
-		}
-	?>
-	
-	
-	
+			if($now > $_SESSION['expire'])
+			{
+				/*session_destroy();
+				echo"<div class='container sinPermiso'><div class='starter-template'><h1>Tu sesión ha expirado</h1>
+				<p class='lead'><a href='register.php'>Identifícate de nuevo</a></p></div></div>";
+				exit;
+				*/
+			}
+		?>
 </head>
 
 
@@ -77,7 +60,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
    	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 
-  
 	<nav class="navbar navbar-inverse">
         <div class="container">
           <div class="navbar-header">
@@ -86,7 +68,7 @@
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li class="active"><a href="index.php">Home</a></li>
-              <li><a href="php/logout.php">logout</a></li>
+              <li><a href="#about">Guía</a></li>
               <li><a href="personajes.php">Personajes</a></li>
               <li><a href="mejoras.php">Comprar Mejoras</a></li>
               <li><a href="profile.php">Perfil</a></li>
@@ -107,103 +89,30 @@
           </div><!--/.nav-collapse -->
         </div>
       </nav>
-	
-	
-		
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="tituloPerfil">
-					<h1>PERFIL DE USUARIO</h1>
-				</div>
-			</div>
-		</div><!--Row portada-->
-		<div class="row row1">
-			<div class="col-sm-4">
-				<?php 
-					include("php/profileP.php");
-					$con = new profileP();					
-					$con->cargarImagenUsuario();
-				?>
-				<form role="form" class="form-horizontal formImagen" method="post" action="php/fileP.php" enctype="multipart/form-data">
-					<div class="form-group">
-						<input type="file" name="archivo" id="archivo" class="btn btn-primary"/>
-					</div>
-					<div class="form-group">
-						<input type="submit" value="Submit" name="submit" class="btn btn-primary">
-					</div>
-				</form>
-			</div><!--columna izq-->
-			
-			<div class="col-sm-8">
-				
-				
-				<div class='col-sm-6'>
-				<?php
-					
-					$con = new profileP();
-					$con-> cargarImagen($_SESSION['identificador']);
-					
-				?>
-				</div>
-				
-				<div class='col-sm-6'>
 
-		<?php
-			$con = new profileP();
-			$con-> cargarDatosPj($_SESSION['identificador']);
-		?>
-		</div>
-				
-				
-			</div><!--columna derecha-->	
-		</div><!--Row 1-->
-		
-		<div class="row">
-			<div class="col-sm-12">
-			<table id="tablaMejoras"class="table table-hover tablaCompras">
-				<thead>
-					<th>Nombre</th>
-					<th>Tipo</th>
-					<th>Mejora</th>
-					<th>Cantidad</th>
-					<th>Total</th>
-				</thead>
-				
-					<!--<td><button  id="botonComprar" type="button" class="btn btn-primary">Compra</button></td>-->
-				<?php
-					$con = new profileP();
-					$con->mostrarMejorasPersonaje($_SESSION['identificador']);
-				?>
-			
-			</table>
-			</div>
-		</div><!--Row 2-->
-		
-	</div><!--Container-->	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-		
-		
+	  
+	  <div class="container">
+		  <div class="row">
+			  <h1 class="tituloMejoras">Asignaturas</h1>
+			  <?php
+				 include("php/asignaturasP.php");
+				  $Con=new asignaturasP();
+				  $Con -> mostrarAsignaturas();
+				  //$Con-> pruebaSqlite();									  
+			?>
+			  
+			  
+		  </div><!--fin row-->
+	  </div><!--Fin container-->
+      
+
+
+
+
+
+
+
+
 
 
 </body>

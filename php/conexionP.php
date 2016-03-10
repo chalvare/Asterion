@@ -15,7 +15,7 @@ class conexionP{
 
 
 	function verificar_login($nombre,$pass){
-		session_start();
+		
 		$con= $this->conexion();
 		
 		$sql= "SELECT * FROM user WHERE nombre='$nombre' AND pass='$pass'";
@@ -24,11 +24,13 @@ class conexionP{
 		//echo "<script language='JavaScript'>alert('$fila[0]');</script>";
 		$count = mysqli_num_rows($result);
 		if($count == 1){
+			session_start();
 		     $_SESSION['loggedin'] = true;
 			 $_SESSION['username'] = $nombre;
 			 $_SESSION['start'] = time();
 			 $_SESSION['expire'] = $_SESSION['start'] + (60 * 60) ;
 			 $_SESSION['identificador']=$fila[0];
+			 
 			 //echo "Bienvenido! " . $_SESSION['username']. session_id();
 			 //echo "<script language='JavaScript'>alert('asdasas');</script>";
 			 
@@ -38,10 +40,12 @@ class conexionP{
 		}else {
 			echo "<script language='JavaScript'>alert('Username o Password son incorrectos.');</script>";
 		}
+		$con->close();
 		
 	}
 	
 	function registrarUsuario($nombre, $pass, $email){
+		
 		$con= $this->conexion();
 		$sqlComprobacion= "SELECT * FROM user WHERE nombre='$nombre'";
 		$result=mysqli_query($con, $sqlComprobacion);
@@ -52,7 +56,7 @@ class conexionP{
 			
 			if (mysqli_query($con, $sql)) {
 			    //echo "<script language='JavaScript'>alert('bien creado');</script>";
-			    header("location:index.php");
+			    header("location:register.php");
 			} else {
 			    echo "Error: " . $sql . "<br>" . $con->error;
 			    echo "<script language='JavaScript'>alert('mal creado');</script>";
@@ -85,6 +89,7 @@ class conexionP{
 			$sqlActualizar2 = "UPDATE usuarioPersonaje  SET studys=studys+100 WHERE idUsuario=".$_SESSION['identificador'];
 			$resActualizar2 = mysqli_query($con,$sqlActualizar2);
 		}
+		
 
 	}
 	

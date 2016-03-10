@@ -29,7 +29,7 @@
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/npm.js"></script>-->
 
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="index/style.css" rel="stylesheet">
+	<link href="index/css/style.css" rel="stylesheet">
 
 		<?php
 			session_start();
