@@ -82,7 +82,7 @@ class conexionP{
 		//$final = ($final/60); //para pruebas
 		//echo"<br>".$final;
 			
-		if($final>=24){//$final>=1 para pruebas
+		if($final>=1){
 			$sqlActualizar = "UPDATE user  SET tiempo=$tiempoActual WHERE id=".$_SESSION['identificador'];
 			$resActualizar = mysqli_query($con,$sqlActualizar);
 				

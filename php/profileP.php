@@ -62,13 +62,14 @@ class profileP{
 			echo"<p class='lead'>Nivel: ". $usuarioPj['nivel']."</p>";  
 			echo"<p class='lead'>Studys: ". $usuarioPj['studys']. "</p>";
 			
-			$sqlPersonaje = "SELECT * FROM personajes WHERE id=".$usuarioPj['idPersonaje'];
+			$sqlnombre = "SELECT * FROM personajes WHERE id=".$usuarioPj['idPersonaje'];
+			$resNombre = mysqli_query($con, $sqlnombre);
+			$nombre = mysqli_fetch_array($resNombre);
+						
+						
+			$sqlPersonaje = "SELECT * FROM usuarioPersonaje WHERE idUsuario=".$idUsuario;
 			$resPersonaje = mysqli_query($con, $sqlPersonaje);
 			$personaje = mysqli_fetch_array($resPersonaje);
-			
-			$sqlMejorado = "SELECT * FROM usuarioMejoras WHERE idUsuario=".$usuarioPj['idPersonaje'];
-			$resMejorado = mysqli_query($con, $sqlMejorado);
-			
 			
 			$inteligencia = $personaje['inteligencia'];
 			$tecnicas = $personaje['tecnicas'];
@@ -77,39 +78,13 @@ class profileP{
 			$estudio = $personaje['estudio'];  
 			$suerte = $personaje['suerte'];	  
 			
-			
-			while($mejorado = mysqli_fetch_array($resMejorado)){
-				if($mejorado['tipoMejora']==1){
-					$inteligencia = $personaje['inteligencia'] + ($personaje['inteligencia'] * $mejorado['total']);
-					
-				}
-				if($mejorado['tipoMejora']==2){
-					$tecnicas = $personaje['tecnicas'] + ($personaje['tecnicas'] * $mejorado['total']);
-					
-				}
-				if($mejorado['tipoMejora']==3){
-					$grupo = $personaje['grupo'] + ($personaje['grupo'] * $mejorado['total']);
-					
-				}
-				if($mejorado['tipoMejora']==4){
-					$constancia = $personaje['constancia'] + ($personaje['constancia'] * $mejorado['total']);
-					
-				}
-				if($mejorado['tipoMejora']==5){
-					$estudio = $personaje['estudio'] + ($personaje['estudio'] * $mejorado['total']);
-					
-				}
-				if($mejorado['tipoMejora']==6){
-					$suerte = $personaje['suerte'] + ($personaje['suerte'] * $mejorado['total']);
-					
-				}	
-			}	
+				
 			
 			echo "<div class='table-responsive'>";
 				echo "<table class='table caracteristicas'>";
 					echo "<thead>";
 						echo "<tr>";
-							echo "<th>".$personaje['nombre']."</th>";
+							echo "<th>".$nombre['nombre']."</th>";
 							echo "<th>Valor</th>";
 						echo "</tr>";
 					echo "</thead>";
@@ -186,7 +161,12 @@ class profileP{
 		if(isset($_POST['submitElegirPJ'])){
 			//echo "<script language='JavaScript'>alert('asdasas');</script>";
 			$eleccionPj = $_POST['pjs'];
-			$sqlInsert = "INSERT INTO usuarioPersonaje VALUES('".$_SESSION['identificador']."','".$eleccionPj."',1,0,1000)";
+			$sqlPersonaje = "SELECT * FROM personajes WHERE id=".$eleccionPj;
+			$resPersonaje = mysqli_query($con, $sqlPersonaje);
+			$personaje = mysqli_fetch_array($resPersonaje);
+
+			
+			$sqlInsert = "INSERT INTO usuarioPersonaje VALUES('".$_SESSION['identificador']."','".$eleccionPj."',1,0,100000,'".$personaje['inteligencia']."','".$personaje['tecnicas']."','".$personaje['grupo']."','".$personaje['constancia']."','".$personaje['estudio']."','".$personaje['suerte']."')";
 			$resInsert = mysqli_query($con, $sqlInsert);
 			printf("<script>location.href='profile.php'</script>");
 

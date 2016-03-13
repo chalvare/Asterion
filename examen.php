@@ -29,7 +29,7 @@
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/npm.js"></script>-->
 
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="asignaturas/css/style.css" rel="stylesheet">
+	<link href="examen/css/style.css" rel="stylesheet">
 
 		<?php
 			session_start();
@@ -51,6 +51,32 @@
 				*/
 			}
 		?>
+		<script lang="javascript">
+			$(document).ready(function() {
+	            setTimeout(function(){
+					 $envio=$('#volverAAsignatura').find('input[type=submit]');
+					 $envio.click();
+				}, 2000);
+			});
+			
+			
+			
+			var porcentaje =0;
+			var status;
+			 $(document).ready(function(){
+				
+				status = setInterval(function(){
+					porcentaje=porcentaje + 10;
+					$('#progreso').css("width",porcentaje+"%");
+					if(porcentaje==100) clearInterval(status);
+				}, 100);
+				
+				
+				
+			});
+			
+
+		</script>
 </head>
 
 
@@ -59,8 +85,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
    	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-   	
-      	
 
 	<nav class="navbar navbar-inverse">
         <div class="container">
@@ -92,48 +116,60 @@
         </div>
       </nav>
 
-	  
+
+
 	  <div class="container">
 		  <div class="row">
-			  <h1 class="tituloAsignaturas">Asignaturas</h1>
-			  <?php
-				 include("php/asignaturasP.php");
-				  $Con=new asignaturasP();
-				  /*echo"<div class='row'>";
-				  $Con -> mostrarAsignaturas(1);
-				  echo"</div>";
-				  echo"<div class='row'>";
-				  $Con -> mostrarAsignaturas(2);
-				  echo"</div>";
-				  echo"<div class='row'>";
-				  $Con -> mostrarAsignaturas(3);
-				  echo"</div>";
-				  echo"<div class='row'>";
-				  $Con -> mostrarAsignaturas(4);
-				  echo"</div>";*/
-				  for($i=1;$i<=4;$i++){
-					  echo"<div class='row'>";
-					  $Con -> mostrarAsignaturas($i);
-					  echo"</div>";
-				  }
-				  //$Con-> pruebaSqlite();		
-				  
-				  							
-			?>
-			  
-			  
-		  </div><!--fin row-->
-	  </div><!--Fin container-->
-      
-	  <?php
-				 
-				  $Con=new asignaturasP();
-				 
-					  //$Con -> prueba();
-					  
-					  echo"desde examen".$_POST['hid'];
+			<div class="progress capaProgreso">
+				  <div id="progreso" class="progress-bar progress-bar-info progress-bar-striped active barraProgreso" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+				    Realizando Examen
+				  </div>
+				</div>
+			   <?php
+				   
+				    include("php/examenP.php");
+				  $Con=new examenP();
+				  $Con->calcularResultado($_SESSION['identificador']);
+				   
+			  if(isset($_POST['submit'])){
+					$ida = $_POST['idAsig'];
+					$dificultad = $_POST['dificultad'];
+					$examen = $_POST['examen'];
+					echo"<br>id asignatura: ".$ida;
+					echo"<br>dificultad: ".$dificultad;
+					echo"<br>examen: ".$examen;
+					echo"<br>usuario: ".$_SESSION['identificador'];
 					
-	?>
+					//header("Refresh:2;url=asignaturas.php");
+					echo"
+					<form action='asignaturas.php' method='post' id='volverAAsignaturas'>
+						<input type='hidden' value='$ida' name='hid'>
+						<input type='submit' value='submit' name='submit' class='botonSubmitExamen'>
+					</form>
+					";	
+					
+				}else{
+					echo"noooooo: ";
+					//header("Refresh:2;url=asignaturas.php");
+					echo"
+					<form action='asignaturas.php' method='post'>
+						<input type='hidden' value='123' name='hid'>
+						<input type='submit' value='submit' name='submit'>
+					</form>
+					";
+				}
+
+	?>		  
+	
+	        
+		  </div>
+	  </div>
+
+
+     
+
+
+
 
 
 
