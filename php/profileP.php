@@ -39,6 +39,33 @@ class profileP{
 	$con->close();	
 	}
 	
+	function mostrarAsignaturasPersonaje($idSession){
+		$con= $this->conexion();
+				
+		$sqlBuscarAsignaturasUsuario = "SELECT * FROM usuarioAsignatura WHERE idUsuario=$idSession AND aprobado=1";
+		$resBuscarAsignaturasUsuario = mysqli_query($con, $sqlBuscarAsignaturasUsuario);
+		$row_cnt = mysqli_num_rows($resBuscarAsignaturasUsuario);
+		
+		if($row_cnt!=0){
+			while($fila = mysqli_fetch_array($resBuscarAsignaturasUsuario)){
+				$sqlDatosAsig="SELECT * FROM asignatura WHERE id=".$fila['idAsignatura'];
+				$resDatosAsig=mysqli_query($con, $sqlDatosAsig);
+				$datosAsig = mysqli_fetch_array($resDatosAsig);
+				echo"<tr>";
+				echo"<td>". utf8_encode($datosAsig['nombre'])."</td>";
+				echo"<td>". utf8_encode($datosAsig['acronimo'])."</td>";
+				echo"<td>".$fila['nota']."</td>";
+				echo"<td>".$fila['matricula']."</td>";
+				echo"</tr>";
+			}
+		}else{
+			echo"<tr><td>Aún no has aprobado ninguna asignatura</td></tr>";
+		}
+		
+		
+	$con->close();	
+	}
+	
 	
 	
 	
@@ -166,7 +193,7 @@ class profileP{
 			$personaje = mysqli_fetch_array($resPersonaje);
 
 			
-			$sqlInsert = "INSERT INTO usuarioPersonaje VALUES('".$_SESSION['identificador']."','".$eleccionPj."',1,0,100000,'".$personaje['inteligencia']."','".$personaje['tecnicas']."','".$personaje['grupo']."','".$personaje['constancia']."','".$personaje['estudio']."','".$personaje['suerte']."')";
+			$sqlInsert = "INSERT INTO usuarioPersonaje VALUES('".$_SESSION['identificador']."','".$eleccionPj."',1,2000,'".$personaje['inteligencia']."','".$personaje['tecnicas']."','".$personaje['grupo']."','".$personaje['constancia']."','".$personaje['estudio']."','".$personaje['suerte']."')";
 			$resInsert = mysqli_query($con, $sqlInsert);
 			printf("<script>location.href='profile.php'</script>");
 

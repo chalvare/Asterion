@@ -2,6 +2,10 @@
 	text-align: center;
 }
 
+.tablaMejoras{
+	    margin-top: -50px;
+}
+
 .tablaMejoras th{
 	text-align: center;
 	font-size: 26px;
@@ -14,3 +18,15 @@
 	text-align: center;
 	padding:300px;
 }
+
+.pie{
+	background-color: #dbdbdb;
+}
+
+.compraExito{
+	width: 400px;
+    margin: 0 auto;
+    margin-top: 50px;
+	
+}
+

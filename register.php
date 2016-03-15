@@ -27,7 +27,7 @@
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/npm.js"></script>-->
-	
+	<link rel="shortcut icon" href="images/favicon.ico" />
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="register/css/style.css" rel="stylesheet">
 	<script>
@@ -72,15 +72,13 @@
 		$("#success-alert").hide();
 		$('#login-submit').on('click',function showAlert() {
 			$('#success-alert').alert();
-			$('#success-alert').fadeTo(2000, 100).slideUp(500, function(){
-			$('#success-alert').alert('close');
-			});   
-		});
+			$('#success-alert').show()		
+			});
 	});
-
- 	
+	
 	
 	</script>
+	
 
 </head>
 	
@@ -123,35 +121,40 @@
    	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
    		
 	
-	<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse">
         <div class="container">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="index.php">Asterion</a>
-          </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="index.php">Home</a></li>
-              <li><a href="php/logout.php">logout</a></li>
-              <li><a href="personajes.php">Personajes</a></li>
-              <li><a href="mejoras.php">Comprar Mejoras</a></li>
-              <li><a href="profile.php">Perfil</a></li>
-              <li><a href="register.php">Login/Registro</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Acceder</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else more</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">Cerrar Sesión</a></li>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.php">Asterion</a>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.php">Home</a></li>
+					<li class="dropdown">
+		                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guía <span class="caret"></span></a>
+		                <ul class="dropdown-menu">
+			              <li><a href="index.php#como">Como jugar</a></li>
+		                  <li><a href="index.php#personajes">Personajes</a></li>
+		                  <li><a href="index.php#compras">Compra de mejoras</a></li>
+		                  <li><a href="index.php#asignaturas">Asignaturas</a></li>
+		                  <!--<li role="separator" class="divider"></li>
+		                  <li class="dropdown-header">Nav header</li>
+		                  <li><a href="#">Separated link</a></li>
+		                  <li><a href="#">Cerrar Sesión</a></li>-->
+		                </ul>
+		             </li>
+                    <?php
+	                    include("php/menuP.php");
+	                    $con = new menuP();
+	                    $con->menu();
+	                    
+					?>
+					
+					
                 </ul>
-              </li>
-	        </ul>
-          </div><!--/.nav-collapse -->
+            </div><!--/.nav-collapse -->
         </div>
-      </nav>
+    </nav>
       
       
        
@@ -220,12 +223,12 @@
 									</div>
 								</form>
 								
-								<!--<div class="alert alert-success" id="success-alert">
+								<div class="alert alert-success" id="success-alert">
 							    <button type="button" class="close" data-dismiss="alert">x</button>
-							    <strong>Success! </strong>
-							    	Product have added to your wishlist.
+							    <strong>¡Éxito! </strong>
+							    	Te has logeado. Se te redirigirá al index.
 								</div>
-								-->
+							
 							</div>
 						</div>
 					</div>
@@ -233,13 +236,15 @@
 			</div>
 		</div>
 	</div>  
-      
-   
-      
+	
       
       
       
       
+      <?php
+		$con=new menuP();
+		$con->pie();	
+	?>
       
     	
 </body>

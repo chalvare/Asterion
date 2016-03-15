@@ -29,3 +29,14 @@
 .datosAsig{
 	font-weight: 700;
 }
+
+.textoFooter{
+	color: red;
+	font-weight: bold;
+	font-style: !important;
+	font-size: large;
+}
+
+.pie{
+	background-color: #dbdbdb;
+}

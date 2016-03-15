@@ -27,7 +27,7 @@
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/npm.js"></script>-->
-
+	<link rel="shortcut icon" href="images/favicon.ico" />
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="profile/css/style.css" rel="stylesheet">
 	<script>
@@ -43,6 +43,7 @@
 	    borrarTr.remove();      
 		});
 	});
+	
 	</script>
 	
 	
@@ -80,33 +81,38 @@
   
 	<nav class="navbar navbar-inverse">
         <div class="container">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="index.php">Asterion</a>
-          </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="index.php">Home</a></li>
-              <li><a href="php/logout.php">logout</a></li>
-              <li><a href="personajes.php">Personajes</a></li>
-              <li><a href="mejoras.php">Comprar Mejoras</a></li>
-              <li><a href="profile.php">Perfil</a></li>
-              <li><a href="register.php">Login/Registro</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Acceder</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else more</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">Cerrar Sesión</a></li>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.php">Asterion</a>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.php">Home</a></li>
+					<li class="dropdown">
+		                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guía <span class="caret"></span></a>
+		                <ul class="dropdown-menu">
+			              <li><a href="index.php#como">Como jugar</a></li>
+		                  <li><a href="index.php#personajes">Personajes</a></li>
+		                  <li><a href="index.php#compras">Compra de mejoras</a></li>
+		                  <li><a href="index.php#asignaturas">Asignaturas</a></li>
+		                  <!--<li role="separator" class="divider"></li>
+		                  <li class="dropdown-header">Nav header</li>
+		                  <li><a href="#">Separated link</a></li>
+		                  <li><a href="#">Cerrar Sesión</a></li>-->
+		                </ul>
+		             </li>
+                    <?php
+	                    include("php/menuP.php");
+	                    $con = new menuP();
+	                    $con->menu();
+	                    
+					?>
+					
+					
                 </ul>
-              </li>
-	        </ul>
-          </div><!--/.nav-collapse -->
+            </div><!--/.nav-collapse -->
         </div>
-      </nav>
+    </nav>
 	
 	
 		
@@ -180,6 +186,26 @@
 			</div>
 		</div><!--Row 2-->
 		
+		
+		<div class="row">
+			<div class="col-sm-12">
+			<table id="tablaMejoras"class="table table-hover tablaCompras">
+				<thead>
+					<th>Asignatura</th>
+					<th>Acrónimo</th>
+					<th>Nota</th>
+					<th>Matrícula</th>
+				</thead>
+				
+					<!--<td><button  id="botonComprar" type="button" class="btn btn-primary">Compra</button></td>-->
+				<?php
+					$con = new profileP();
+					$con->mostrarAsignaturasPersonaje($_SESSION['identificador']);
+				?>
+			
+			</table>
+			</div>
+		</div><!--Row 3-->
 	</div><!--Container-->	
 		
 		
@@ -201,7 +227,10 @@
 		
 		
 		
-	
+	<?php
+		$con=new menuP();
+		$con->pie();	
+	?>
 		
 		
 

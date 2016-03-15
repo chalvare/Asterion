@@ -23,6 +23,7 @@
     <script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="bootstrap-3.3.6-dist/js/npm.js"></script>-->
+    <link rel="shortcut icon" href="images/favicon.ico" />
     <link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="personajes/css/style.css" rel="stylesheet" type="text/css">
     <script type="text/javascript">
@@ -36,6 +37,27 @@
         
      
     </script>
+    
+    
+	<?php
+		session_start();
+		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
+		//echo "<script language='JavaScript'>alert('".$_SESSION['identificador']."');</script>";
+		}else{
+			echo"<div class='container sinPermiso'><div class='starter-template'><h1>Esta pagina es solo para usuarios registrados.</h1>
+			<p class='lead'><a href='register.php'>¡Registrate con nosotros!</a></p></div></div>";
+			exit;
+		}
+		$now = time(); // checking the time now when home page starts
+			
+		if($now > $_SESSION['expire'])
+		{
+			/*session_destroy();
+			echo"<div class='container sinPermiso'><div class='starter-template'><h1>Tu sesión ha expirado</h1>
+			<p class='lead'><a href='register.php'>Identifícate de nuevo</a></p></div></div>";
+			exit;*/
+		}
+	?>
 </head>
 
 <body>
@@ -54,39 +76,31 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="index.php">Home</a></li>
-
-                    <li><a href="#about">Guía</a></li>
-
-                    <li><a href="personajes.php">Personajes</a></li>
-
-                    <li><a href="mejoras.php">Comprar Mejoras</a></li>
-
-                    <li><a href="profile.php">Perfil</a></li>
-
-                    <li><a href="register.php">Login/Registro</a></li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
-
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Acceder</a></li>
-
-                            <li><a href="#">Another action</a></li>
-
-                            <li><a href="#">Something else more</a></li>
-
-                            <li class="dropdown-header">Nav header</li>
-
-                            <li><a href="#">Separated link</a></li>
-
-                            <li><a href="#">Cerrar Sesión</a></li>
-                        </ul>
-                    </li>
+					<li class="dropdown">
+		                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guía <span class="caret"></span></a>
+		                <ul class="dropdown-menu">
+			              <li><a href="index.php#como">Como jugar</a></li>
+		                  <li><a href="index.php#personajes">Personajes</a></li>
+		                  <li><a href="index.php#compras">Compra de mejoras</a></li>
+		                  <li><a href="index.php#asignaturas">Asignaturas</a></li>
+		                  <!--<li role="separator" class="divider"></li>
+		                  <li class="dropdown-header">Nav header</li>
+		                  <li><a href="#">Separated link</a></li>
+		                  <li><a href="#">Cerrar Sesión</a></li>-->
+		                </ul>
+		             </li>
+                    <?php
+	                    include("php/menuP.php");
+	                    $con = new menuP();
+	                    $con->menu();
+	                    
+					?>
+					
+					
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
-    </nav><!--=========Jumbotron=========-->
-    <!--===========================-->
+    </nav>
 
     <div class="jumbotron">
         <div class="container">
@@ -134,6 +148,9 @@
 
                         <div class="col-sm-3">
                             <select id="selPj" class='form-control' name='pjs'>
+                                <option value='0'>
+                             
+                                </option>
                                 <option value='1'>
                                     Crusader
                                 </option>
@@ -247,5 +264,9 @@
             </div><!--div cierre dech-->
         </div>
     </div>
+    <?php
+		$con=new menuP();
+		$con->pie();	
+	?>
 </body>
 </html>

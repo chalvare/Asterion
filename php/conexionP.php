@@ -18,29 +18,39 @@ class conexionP{
 		
 		$con= $this->conexion();
 		
-		$sql= "SELECT * FROM user WHERE nombre='$nombre' AND pass='$pass'";
+		//$sql= "SELECT * FROM user WHERE nombre='$nombre' AND pass='$pass'";
+		$sql= "SELECT * FROM user WHERE nombre='$nombre'";
 		$result=mysqli_query($con, $sql);
 		$fila = mysqli_fetch_array($result);
 		//echo "<script language='JavaScript'>alert('$fila[0]');</script>";
 		$count = mysqli_num_rows($result);
-		if($count == 1){
+		$hash = $fila['pass'];
+		//$hash= '$2y$10$HRnjRpDnEop5nd8.TOal/.v.1U.4QJDxbNy1YZWzkVOTThhUF0tPC';
+		/*if (password_verify($pass, $hash)) {
+		    echo '¡La contraseña es válida!';
+		} else {
+		    echo 'La contraseña no es válida.';
+		}*/
+		if($count == 1 && password_verify($pass, $hash)){
 			session_start();
 		     $_SESSION['loggedin'] = true;
 			 $_SESSION['username'] = $nombre;
 			 $_SESSION['start'] = time();
-			 $_SESSION['expire'] = $_SESSION['start'] + (60 * 60) ;
+			 $_SESSION['expire'] = $_SESSION['start'] + (60 * 60) ;//minutos * segundos. A los 30 minutos se desconecta
 			 $_SESSION['identificador']=$fila[0];
 			 
 			 //echo "Bienvenido! " . $_SESSION['username']. session_id();
 			 //echo "<script language='JavaScript'>alert('asdasas');</script>";
 			 
 			 $this-> actualizarDinero($con);
-			 
-			 header("location:index.php");
+			 $con->close();
+			 //header("Refresh:5;location:index.php");
+			 header( "refresh:1; url=index.php" );
 		}else {
 			echo "<script language='JavaScript'>alert('Username o Password son incorrectos.');</script>";
+			$con->close();
 		}
-		$con->close();
+		
 		
 	}
 	
@@ -52,6 +62,7 @@ class conexionP{
 		$count = mysqli_num_rows($result);
 		if($count==0){
 			$time=time();
+			$pass= password_hash($pass, PASSWORD_DEFAULT);
 		    $sql="INSERT INTO user VALUES('NULL','".$nombre."','".$pass."','".$email."','".$time."')";
 			
 			if (mysqli_query($con, $sql)) {
@@ -60,7 +71,8 @@ class conexionP{
 			} else {
 			    echo "Error: " . $sql . "<br>" . $con->error;
 			    echo "<script language='JavaScript'>alert('mal creado');</script>";
-			    header("location:register.php");
+			    //header("location:register.php");
+			    header( "refresh:1; url=index.php" );
 			}
 		}else{
 			echo "<script language='JavaScript'>alert('Elige otro nombre. Ya esta registrado');</script>";
@@ -86,7 +98,7 @@ class conexionP{
 			$sqlActualizar = "UPDATE user  SET tiempo=$tiempoActual WHERE id=".$_SESSION['identificador'];
 			$resActualizar = mysqli_query($con,$sqlActualizar);
 				
-			$sqlActualizar2 = "UPDATE usuarioPersonaje  SET studys=studys+100 WHERE idUsuario=".$_SESSION['identificador'];
+			$sqlActualizar2 = "UPDATE usuarioPersonaje  SET studys=studys+1000 WHERE idUsuario=".$_SESSION['identificador'];
 			$resActualizar2 = mysqli_query($con,$sqlActualizar2);
 		}
 		

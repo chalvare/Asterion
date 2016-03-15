@@ -27,7 +27,7 @@
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/npm.js"></script>-->
-
+	<link rel="shortcut icon" href="images/favicon.ico" />
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="mejoras/css/style.css" rel="stylesheet">
 
@@ -65,6 +65,14 @@
 			alert(valor);
 		});
 	});
+	
+	
+	$(document).ready(function(){
+		window.setTimeout(function() { 
+			$(".alert-success").alert('close'); 
+			}, 2000);
+	});
+
 	</script>
 </head>
 
@@ -83,7 +91,8 @@
 			$idCompra = $_POST['idCompra'];
 			$idSession = $_SESSION['identificador'];
 			$Con=new mejorasP();					
-			$Con->guardarMejora($idCompra,$idSession);	
+			$res= $Con->guardarMejora($idCompra,$idSession);	
+			
 		}
 								
 								
@@ -92,38 +101,51 @@
 
 	<nav class="navbar navbar-inverse">
         <div class="container">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="index.php">Asterion</a>
-          </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="index.php">Home</a></li>
-              <li><a href="#about">Guía</a></li>
-              <li><a href="personajes.php">Personajes</a></li>
-              <li><a href="mejoras.php">Comprar Mejoras</a></li>
-              <li><a href="profile.php">Perfil</a></li>
-              <li><a href="register.php">Login/Registro</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Acceder</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else more</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">Cerrar Sesión</a></li>
-                </ul>
-              </li>
-	        </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </nav>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.php">Asterion</a>
+            </div>
 
-	  <div class="container">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.php">Home</a></li>
+					<li class="dropdown">
+		                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guía <span class="caret"></span></a>
+		                <ul class="dropdown-menu">
+			              <li><a href="index.php#como">Como jugar</a></li>
+		                  <li><a href="index.php#personajes">Personajes</a></li>
+		                  <li><a href="index.php#compras">Compra de mejoras</a></li>
+		                  <li><a href="index.php#asignaturas">Asignaturas</a></li>
+		                  <!--<li role="separator" class="divider"></li>
+		                  <li class="dropdown-header">Nav header</li>
+		                  <li><a href="#">Separated link</a></li>
+		                  <li><a href="#">Cerrar Sesión</a></li>-->
+		                </ul>
+		             </li>
+                    <?php
+	                    include("php/menuP.php");
+	                    $con = new menuP();
+	                    $con->menu();
+	                    
+					?>
+					
+					
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>	  
+    
+    <div class="container">
 		  <div class="row">
 			  <h1 class="tituloMejoras">Mejoras</h1>
+			  			
 			  <?php
+				  if(isset($res) && $res==1){
+					  echo"<div class='alert alert-success compraExito' id='success-alert'>";
+					  echo"  <button type='button' class='close' data-dismiss='alert'>x</button>";
+					  echo"  <strong>¡Éxito! </strong>";
+					  echo" La compra se ha añadido a tu personaje.";
+					  echo"</div>";
+				  }
 				  $Con=new mejorasP();
 				  $Con -> mostrarMejoras();
 				  //$Con-> pruebaSqlite();									  
@@ -132,7 +154,10 @@
 			  
 		  </div><!--fin row-->
 	  </div><!--Fin container-->
-           
+       <?php
+		$con=new menuP();
+		$con->pie();	
+	?>    
       
 </body>
 </html>

@@ -27,7 +27,7 @@
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/npm.js"></script>-->
-
+	<link rel="shortcut icon" href="images/favicon.ico" />
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="examen/css/style.css" rel="stylesheet">
 
@@ -53,10 +53,11 @@
 		?>
 		<script lang="javascript">
 			$(document).ready(function() {
+				$('#ralentizar').hide();
 	            setTimeout(function(){
-					 $envio=$('#volverAAsignatura').find('input[type=submit]');
+					 $envio=$('#volverAAsignaturas').find('input[type=submit]');
 					 $envio.click();
-				}, 2000);
+				}, 3000);
 			});
 			
 			
@@ -68,10 +69,11 @@
 				status = setInterval(function(){
 					porcentaje=porcentaje + 10;
 					$('#progreso').css("width",porcentaje+"%");
-					if(porcentaje==100) clearInterval(status);
+					if(porcentaje==100) {
+						clearInterval(status);
+						$('#ralentizar').show();
+					}
 				}, 100);
-				
-				
 				
 			});
 			
@@ -86,36 +88,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
    	<script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 
-	<nav class="navbar navbar-inverse">
-        <div class="container">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="index.php">Asterion</a>
-          </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="index.php">Home</a></li>
-              <li><a href="#about">Guía</a></li>
-              <li><a href="personajes.php">Personajes</a></li>
-              <li><a href="mejoras.php">Comprar Mejoras</a></li>
-              <li><a href="profile.php">Perfil</a></li>
-              <li><a href="register.php">Login/Registro</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Acceder</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else more</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">Cerrar Sesión</a></li>
-                </ul>
-              </li>
-	        </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </nav>
-
+	
 
 
 	  <div class="container">
@@ -128,17 +101,42 @@
 			   <?php
 				   
 				    include("php/examenP.php");
-				  $Con=new examenP();
-				  $Con->calcularResultado($_SESSION['identificador']);
-				   
+				  
+					$resultado=0;
+					 
 			  if(isset($_POST['submit'])){
 					$ida = $_POST['idAsig'];
-					$dificultad = $_POST['dificultad'];
-					$examen = $_POST['examen'];
-					echo"<br>id asignatura: ".$ida;
-					echo"<br>dificultad: ".$dificultad;
-					echo"<br>examen: ".$examen;
-					echo"<br>usuario: ".$_SESSION['identificador'];
+					$Con=new examenP();
+					$resultado= $Con->calcularResultado($_SESSION['identificador'],$_POST['idAsig'],$_POST['dificultad'],$_POST['examen'], $_POST['precio']);
+					//$resultado = 6;
+					if($resultado!=0){
+						$Con->guardarUsuarioAsignatura($_POST['idAsig'], 1,$resultado);
+						$Con->sumarStudys($_SESSION['identificador'], $_POST['precio']);
+						$Con->calcularNivel($_SESSION['identificador'], $resultado, $_POST['creditos']);
+						echo"<div id='ralentizar' class='panel panel-success tam'>
+							<div class='panel-heading'>
+							<span class='glyphicon glyphicon glyphicon-ok' aria-hidden='true'></span>
+								¡¡Aprobado!! ¡¡Enhorabuena!!
+							</div>
+							<div class='panel-body imagenExamen'>
+								<img src='images/pass.jpg' class='imagenExamen' width='200' height='240'>
+								<p class='textoAprobado'>Has ganado ".$_POST['precio']." Studys</p>
+							</div>
+						</div>";
+					}else{
+						$Con->guardarUsuarioAsignatura($_POST['idAsig'], 0,$resultado);
+						echo"<div id='ralentizar' class='panel panel-danger tam'>
+							<div class='panel-heading'>
+								<span class='glyphicon glyphicon glyphicon-remove' aria-hidden='true'></span>
+								¡¡Suspenso!! Lo sentimos. Estudia más la próxima vez.
+							</div>
+							<div class='panel-body imagenExamen'>
+								<img src='images/fail.jpg' class='imagenExamen' width='200' height='240'>
+							</div>
+						</div>";
+					}
+					
+					
 					
 					//header("Refresh:2;url=asignaturas.php");
 					echo"
@@ -147,6 +145,8 @@
 						<input type='submit' value='submit' name='submit' class='botonSubmitExamen'>
 					</form>
 					";	
+					
+					
 					
 				}else{
 					echo"noooooo: ";
@@ -167,7 +167,12 @@
 
 
      
-
+<?php
+		/*include("php/menuP.php");
+		$con=new menuP();
+		$con->pie();	
+		*/
+	?>
 
 
 
