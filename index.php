@@ -45,10 +45,10 @@
 			$now = time(); // checking the time now when home page starts
 			
 			if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $now > $_SESSION['expire']){
-				session_destroy();
+				/*session_destroy();
 				echo"<div class='container sinPermiso'><div class='starter-template'><h1>Tu sesión ha expirado</h1>
 				<p class='lead'><a href='register.php'>Identifícate de nuevo</a></p></div></div>";
-				exit;
+				exit;*/
 				
 			}
 		?>
