@@ -36,7 +36,7 @@ class conexionP{
 		     $_SESSION['loggedin'] = true;
 			 $_SESSION['username'] = $nombre;
 			 $_SESSION['start'] = time();
-			 $_SESSION['expire'] = $_SESSION['start'] + (60 * 60) ;//minutos * segundos. A los 30 minutos se desconecta
+			 $_SESSION['expire'] = $_SESSION['start'] + (30 * 60) ;//minutos * segundos. A los 30 minutos se desconecta
 			 $_SESSION['identificador']=$fila[0];
 			 
 			 //echo "Bienvenido! " . $_SESSION['username']. session_id();
@@ -90,7 +90,7 @@ class conexionP{
 		$tiempoGrabado = $res['tiempo'];
 			
 		$final = $tiempoActual-$tiempoGrabado;
-		$final = ((($final/60)/60)/24);//segundos/minutos/horas 
+		$final = ((($final/60)/60)/4);//segundos/minutos/horas 
 		//$final = ($final/60); //para pruebas
 		//echo"<br>".$final;
 			

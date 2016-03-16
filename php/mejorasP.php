@@ -82,7 +82,7 @@ class mejorasP{
 				
 				$sqlInsert="INSERT INTO usuarioMejoras VALUES('".$idSession."','".$idCompra."','1','".$mejora['valor']."','".$mejora['caracteristica']."')";
 				$resInsertUsuarioMejoras = mysqli_query($con,$sqlInsert);
-				$this->insertarUsuarioPersonaje($con,$idSession);
+				$this->insertarUsuarioPersonaje($con,$idSession, $mejora['caracteristica'], $mejora['valor']);
 				$resultado=1;
 			}else{
 				echo "<script language='JavaScript'>alert('No tienes suficientes studys');</script>";
@@ -94,7 +94,7 @@ class mejorasP{
 				$sqlActualiza = "UPDATE usuarioMejoras  SET cantidad=cantidad+1, total=total+".$mejora['valor']." WHERE idUsuario=$idSession AND idMejoras=$idCompra";
 				$resActualiza = mysqli_query($con,$sqlActualiza);
 				
-				$this->insertarUsuarioPersonaje($con,$idSession);
+				$this->insertarUsuarioPersonaje($con,$idSession, $mejora['caracteristica'], $mejora['valor']);
 				$resultado=1;
 			}else{
 				echo "<script language='JavaScript'>alert('No tienes suficientes studys');</script>";
@@ -104,7 +104,7 @@ class mejorasP{
 		
 	}
 	
-	function insertarUsuarioPersonaje($con, $idUsuario){//la id del usuario y la característica a mejorar de la tabla usuarioMejoras
+	function insertarUsuarioPersonaje($con, $idUsuario, $mejora, $valor){//la id del usuario y la característica a mejorar de la tabla usuarioMejoras
 				
 			
 		
@@ -124,32 +124,38 @@ class mejorasP{
 			$suerte = $personaje['suerte'];	  
 			
 			
-			while($mejorado = mysqli_fetch_array($resMejorado)){
-				if($mejorado['tipoMejora']==1){
-					$inteligencia = $personaje['inteligencia'] + ($personaje['inteligencia'] * $mejorado['total']);
+			//while($mejorado = mysqli_fetch_array($resMejorado)){
+				if(/*$mejorado['tipoMejora']==1*/$mejora==1){
+					echo "<script language='JavaScript'>alert('entramos1');</script>";
+					$inteligencia = $personaje['inteligencia'] + ($personaje['inteligencia'] * $valor);
 					
 				}
-				if($mejorado['tipoMejora']==2){
-					$tecnicas = $personaje['tecnicas'] + ($personaje['tecnicas'] * $mejorado['total']);
+				if($mejora==2){
+					echo "<script language='JavaScript'>alert('entramos2');</script>";
+					$tecnicas = $personaje['tecnicas'] + ($personaje['tecnicas'] * $valor);
 					
 				}
-				if($mejorado['tipoMejora']==3){
-					$grupo = $personaje['grupo'] + ($personaje['grupo'] * $mejorado['total']);
+				if($mejora==3){
+					echo "<script language='JavaScript'>alert('entramos3');</script>";
+					$grupo = $personaje['grupo'] + ($personaje['grupo'] * $valor);
 					
 				}
-				if($mejorado['tipoMejora']==4){
-					$constancia = $personaje['constancia'] + ($personaje['constancia'] * $mejorado['total']);
+				if($mejora==4){
+					echo "<script language='JavaScript'>alert('entramos4');</script>";
+					$constancia = $personaje['constancia'] + ($personaje['constancia'] * $valor);
 					
 				}
-				if($mejorado['tipoMejora']==5){
-					$estudio = $personaje['estudio'] + ($personaje['estudio'] * $mejorado['total']);
+				if($mejora==5){
+					echo "<script language='JavaScript'>alert('entramos5');</script>";
+					$estudio = $personaje['estudio'] + ($personaje['estudio'] * $valor);
 					
 				}
-				if($mejorado['tipoMejora']==6){
-					$suerte = $personaje['suerte'] + ($personaje['suerte'] * $mejorado['total']);
+				if($mejora==6){
+					echo "<script language='JavaScript'>alert('entramos6');</script>";
+					$suerte = $personaje['suerte'] + ($personaje['suerte'] * $valor);
 					
 				}			
-		}
+		//}
 		
 		$sqlCaracteristicasActualizadas="UPDATE usuarioPersonaje SET inteligencia=$inteligencia, tecnicas=$tecnicas, grupo=$grupo, constancia=$constancia, estudio=$estudio, suerte=$suerte   WHERE idUsuario=$idUsuario";
 		$resCaracteristicasActualizadas = mysqli_query($con, $sqlCaracteristicasActualizadas);
