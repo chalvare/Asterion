@@ -110,7 +110,7 @@
 					$resultado= $Con->calcularResultado($_SESSION['identificador'],$_POST['idAsig'],$_POST['dificultad'],$_POST['examen'], $_POST['precio']);
 					//$resultado = 6;
 					if($resultado!=0){
-						$Con->guardarUsuarioAsignatura($_POST['idAsig'], 1,$resultado);
+						$Con->guardarUsuarioAsignatura($_POST['idAsig'], 1,$resultado, $_POST['anyo']);
 						$Con->sumarStudys($_SESSION['identificador'], $_POST['precio']);
 						$Con->calcularNivel($_SESSION['identificador'], $resultado, $_POST['creditos']);
 						echo"<div id='ralentizar' class='panel panel-success tam'>
@@ -124,7 +124,7 @@
 							</div>
 						</div>";
 					}else{
-						$Con->guardarUsuarioAsignatura($_POST['idAsig'], 0,$resultado);
+						$Con->guardarUsuarioAsignatura($_POST['idAsig'], 0,$resultado, $_POST['anyo']);
 						echo"<div id='ralentizar' class='panel panel-danger tam'>
 							<div class='panel-heading'>
 								<span class='glyphicon glyphicon glyphicon-remove' aria-hidden='true'></span>

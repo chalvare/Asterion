@@ -54,14 +54,14 @@
 	}
 
 
-	function guardarUsuarioAsignatura($idAsignatura, $aprobado ,$nota){
+	function guardarUsuarioAsignatura($idAsignatura, $aprobado ,$nota, $anyo){
 		$con=$this->conexion();
 		$sqlBusAsig = "SELECT * FROM usuarioAsignatura WHERE idUsuario=".$_SESSION['identificador']." AND idAsignatura=".$idAsignatura;
 		$resBusAsig = mysqli_query($con, $sqlBusAsig);
 		$numFilas = mysqli_num_rows($resBusAsig);
 		$busAsig = mysqli_fetch_array($resBusAsig);
 		if($numFilas==0){//es primera matricula. Insertamos
-			$sqlInsert ="INSERT INTO usuarioAsignatura VALUES('".$_SESSION['identificador']."','".$idAsignatura."','".$aprobado."','".$nota."','1')";
+			$sqlInsert ="INSERT INTO usuarioAsignatura VALUES('".$_SESSION['identificador']."','".$idAsignatura."','".$aprobado."','".$nota."','1','".$anyo."')";
 			$resInsert=mysqli_query($con, $sqlInsert);
 		}else{//no es primera matricula. ACtualizamos a + 1 
 			//echo "<script language='JavaScript'>alert('elseeee examenp');</script>";

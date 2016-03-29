@@ -14,7 +14,46 @@ class asignaturasP{
 		$con= $this->conexion();
 		$sqlAprobadas = "SELECT * FROM usuarioAsignatura WHERE idUsuario=".$_SESSION['identificador']." AND aprobado=1";
 		$resAprobadas = mysqli_query($con, $sqlAprobadas);
+		$con->close();
 		return $resAprobadas;
+	}
+
+
+	function comprobarAsignaturasAnyo($anyo){
+		$con= $this->conexion();
+		$sqlAprobadas = "SELECT * FROM usuarioAsignatura where anyo=1 and aprobado=1 and idUsuario=".$_SESSION['identificador'];
+		$resAprobadas = mysqli_query($con, $sqlAprobadas);
+		$primero = mysqli_num_rows($resAprobadas);
+		
+		$sqlAprobadas = "SELECT * FROM usuarioAsignatura where anyo=2 and aprobado=1 and idUsuario=".$_SESSION['identificador'];
+		$resAprobadas = mysqli_query($con, $sqlAprobadas);
+		$segundo = mysqli_num_rows($resAprobadas);
+		
+		$sqlAprobadas = "SELECT * FROM usuarioAsignatura where anyo=3 and aprobado=1 and idUsuario=".$_SESSION['identificador'];
+		$resAprobadas = mysqli_query($con, $sqlAprobadas);
+		$tercero = mysqli_num_rows($resAprobadas);
+		$con->close();
+		
+		switch($anyo){
+			case 2:
+				if($primero==6)return 0;
+				else return 1;
+			break;
+			case 3:
+				if($primero==6 && $segundo==8)return 0;
+				else return 1;
+			break;
+			case 4:
+				if($primero==6 && $segundo==8 && $tercero==10)return 0;
+				else return 1;
+			break;
+			default:
+				return 0;
+			break;
+			
+		}
+		
+		
 	}
 
 	function mostrarAsignaturas($anyo){
@@ -99,6 +138,8 @@ class asignaturasP{
 			$asig = mysqli_fetch_array($resAsig);
 			$total = $fila['precio']*$asig['matricula'];
 		}
+		
+		
 			echo"<a href='#myModal$id' class='btn btn-primary' data-toggle='modal'>Examen</a>
 				<div id='myModal$id' class='modal fade'>
 					<div class='modal-dialog'>
@@ -120,7 +161,8 @@ class asignaturasP{
 								<p class='datosAsig'> Dificultad Examen: $fila[examen]</p>
 							</div>	
 		                </div>";
-		                if($studys['studys']>=$fila['precio']){
+		                $asignaturasAprobadas = $this->comprobarAsignaturasAnyo($fila['anyo']);
+		                if($studys['studys']>=$fila['precio'] && $asignaturasAprobadas==0){
 		                echo"
 		                <div class='modal-footer'>
 			                <div class='divform'>
@@ -130,6 +172,7 @@ class asignaturasP{
 								<input type='hidden' value='$fila[examen]' name='examen'>
 								<input type='hidden' value='$fila[precio]' name='precio'>
 								<input type='hidden' value='$fila[creditos]' name='creditos'>
+								<input type='hidden' value='$fila[anyo]' name='anyo'>
 								<button type='button' class='btn btn-default' data-dismiss='modal'>Cerrar</button>
 								<input type='submit'  class='btn btn-primary' name='submit' value='Examinar'>
 								</form>
@@ -141,7 +184,7 @@ class asignaturasP{
 				}else{
 					echo"
 					<div class='modal-footer'>
-						<p class='textoFooter'>No tienes suficientes Studys</p>
+						<p class='textoFooter'>No tienes suficientes Studys o no tienes todas las asignaturas aprobadas del año anterior</p>
 					</div>
 		        </div>
 				</div>

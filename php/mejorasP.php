@@ -126,32 +126,32 @@ class mejorasP{
 			
 			//while($mejorado = mysqli_fetch_array($resMejorado)){
 				if(/*$mejorado['tipoMejora']==1*/$mejora==1){
-					echo "<script language='JavaScript'>alert('entramos1');</script>";
+					//echo "<script language='JavaScript'>alert('entramos1');</script>";
 					$inteligencia = $personaje['inteligencia'] + ($personaje['inteligencia'] * $valor);
 					
 				}
 				if($mejora==2){
-					echo "<script language='JavaScript'>alert('entramos2');</script>";
+					//echo "<script language='JavaScript'>alert('entramos2');</script>";
 					$tecnicas = $personaje['tecnicas'] + ($personaje['tecnicas'] * $valor);
 					
 				}
 				if($mejora==3){
-					echo "<script language='JavaScript'>alert('entramos3');</script>";
+					//echo "<script language='JavaScript'>alert('entramos3');</script>";
 					$grupo = $personaje['grupo'] + ($personaje['grupo'] * $valor);
 					
 				}
 				if($mejora==4){
-					echo "<script language='JavaScript'>alert('entramos4');</script>";
+					//echo "<script language='JavaScript'>alert('entramos4');</script>";
 					$constancia = $personaje['constancia'] + ($personaje['constancia'] * $valor);
 					
 				}
 				if($mejora==5){
-					echo "<script language='JavaScript'>alert('entramos5');</script>";
+					//echo "<script language='JavaScript'>alert('entramos5');</script>";
 					$estudio = $personaje['estudio'] + ($personaje['estudio'] * $valor);
 					
 				}
 				if($mejora==6){
-					echo "<script language='JavaScript'>alert('entramos6');</script>";
+					//echo "<script language='JavaScript'>alert('entramos6');</script>";
 					$suerte = $personaje['suerte'] + ($personaje['suerte'] * $valor);
 					
 				}			
