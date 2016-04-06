@@ -26,17 +26,7 @@
     <link rel="shortcut icon" href="images/favicon.ico" />
     <link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="personajes/css/style.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript">
-    
-    $(document).ready(function() {
-            $('#selPj').on('change', function() {
-               var $form = $(this).closest('form');
-               $form.find('input[type=submit]').click();
-            });
-        });
-        
-     
-    </script>
+    <script type="text/javascript" src="personajes/js/jquery.js"></script>
     
     
 	<?php
@@ -124,17 +114,16 @@
                         $pjs = $_POST['pjs'];
                         $personaje=$Con -> recuperarPersonaje($pjs);
                         //echo "<script language='JavaScript'>alert($personaje[1]);</script>";
-                        echo "<div class='col-sm-6'>";
-                        echo "<img src='images/personajes/$personaje[0].jpg' class='img-rounded img-responsive imagepj' alt='$personaje[1]' width='346' height='600'>";
-                        echo "</div>";
+
                         
                     
-                    }else{
-                        echo "<div class='col-sm-6'>";
-                        echo "<img src='images/personajes/1.jpg' class='img-rounded img-responsive imagepj' alt='Cruzado' width='346' height='600'>";
-                        echo "</div>";
+                    }else{?>
+                        <div class='col-sm-6'>
+                        <img src='images/personajes/1.jpg' class='img-rounded img-responsive imagepj' alt='Cruzado' width='346' height='600'>
+                        </div>
                         
-                    }
+                    <?php
+	                    }
                     
                     ?><!--=========Derecha===========-->
             <!--===========================-->
@@ -178,88 +167,54 @@
                         </div><input type='submit' name='submit' value="Seleccionar" class='btn btn-primary botonSubmitPj'>
                     </div>
                 </form><?php
+	                
+	                		
                             if (isset($_POST['submit'])) {
-                                $texto=utf8_encode($personaje[9]);
-                                echo "<h3>$personaje[1]</h3><p class='textoPersonaje'> $texto </p>";
-                                echo "<div class='table-responsive'>";
-                                echo "<table class='table caracteristicas'>";
-                                    echo "<thead>";
-                                        echo "<tr>";
-                                            echo "<th>$personaje[1]</th>";
-                                            echo "<th>Valor</th>";
-                                        echo "</tr>";
-                                    echo "</thead>";
-                                    echo "<tbody>";
-                                     // <!-- Aplicadas en las filas -->
-                                      echo "<tr class='info'>";
-                                        echo "<td>Inteligencia</td>";
-                                        echo "<td>$personaje[2]</td>";
-                                      echo "</tr>";
-                                      echo "<tr class='info'>";
-                                        echo "<td>Técnicas</td>";
-                                        echo "<td>$personaje[3]</td>";
-                                      echo "</tr>";
-                                      echo "<tr class='info'>";
-                                        echo "<td>Grupo</td>";
-                                        echo "<td>$personaje[4]</td>";
-                                      echo "</tr>";
-                                      echo "<tr class='info'>";
-                                        echo "<td>Constancia</td>";
-                                        echo "<td>$personaje[5]</td>";
-                                      echo "</tr>";
-                                      echo "<tr class='info'>";
-                                        echo "<td>Estudio</td>";
-                                        echo "<td>$personaje[6]</td>";
-                                      echo "</tr>";
-                                      echo "<tr class='info'>";
-                                        echo "<td >Suerte</td>";
-                                        echo "<td >$personaje[7]</td>";
-                                      echo "</tr>";
-                                    echo "</tbody>";
-                                echo "</table>";
-                            echo "</div>";
-                        
-                            }else{
-                                echo "<h3>Crusader</h3><p class='textoPersonaje'> ¿Qué camino es el correcto? Mientras me encuentro en este caótico cruce del odio
-                 ¿Cuántas formas hay para rogar por este oscuro y maldito sendero del destino? Hay muchas formas, hijo mío, que se encuentran donde las almas de los demonios permanecen. Pero sólo cuesta un segundo de desesperación y duda hasta que al final tu alma gane. Hereda estas tierras, estas cosas, estos sueños que son tuyos, para siempre, adóralos; porque no hay vida en las profundidades del caos que puedas explorar.</p>";
-                                echo "<div class='table-responsive'>";
-                                echo "<table class='table caracteristicas'>";
-                                    echo "<thead>";
-                                        echo "<tr>";
-                                            echo "<th>Crusader</th>";
-                                            echo "<th>Valor</th>";
-                                        echo "</tr>";
-                                    echo "</thead>";
-                                    echo "<tbody>";
-                                     // <!-- Aplicadas en las filas -->
-                                      echo "<tr class='info'>";
-                                        echo "<td >Inteligencia</td>";
-                                        echo "<td >5</td>";
-                                      echo "</tr>";
-                                      echo "<tr class='info'>";
-                                        echo "<td>Técnicas</td>";
-                                        echo "<td>3</td>";
-                                      echo "</tr>";
-                                      echo "<tr class='info'>";
-                                        echo "<td>Grupo</td>";
-                                        echo "<td>2</td>";
-                                      echo "</tr>";
-                                      echo "<tr class='info'>";
-                                        echo "<td>Constancia</td>";
-                                        echo "<td>2</td>";
-                                      echo "</tr>";
-                                      echo "<tr class='info'>";
-                                        echo "<td>Estudio</td>";
-                                        echo "<td>4</td>";
-                                      echo "</tr>";
-                                      echo "<tr class='info'>";
-                                        echo "<td >Suerte</td>";
-                                        echo "<td >2</td>";
-                                      echo "</tr>";
-                                    echo "</tbody>";
-                                echo "</table>";
-                            echo "</div>";//fin table-responsive
-                            }
+	                            $Con -> mostrarPersonaje($personaje);
+                                                        
+                            }else{?>
+	                           
+                                <h3>Crusader</h3><p class='textoPersonaje'> ¿Qué camino es el correcto? Mientras me encuentro en este caótico cruce del odio
+                 ¿Cuántas formas hay para rogar por este oscuro y maldito sendero del destino? Hay muchas formas, hijo mío, que se encuentran donde las almas de los demonios permanecen. Pero sólo cuesta un segundo de desesperación y duda hasta que al final tu alma gane. Hereda estas tierras, estas cosas, estos sueños que son tuyos, para siempre, adóralos; porque no hay vida en las profundidades del caos que puedas explorar.</p>
+                                <div class='table-responsive'>
+                                <table class='table caracteristicas'>
+                                    <thead>
+                                        <tr>
+                                            <th>Crusader</th>
+                                            <th>Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      <!-- Aplicadas en las filas -->
+                                      <tr class='info'>
+                                        <td >Inteligencia</td>
+                                        <td >5</td>
+                                      </tr>
+                                      <tr class='info'>
+                                        <td>Técnicas</td>
+                                        <td>3</td>
+                                      </tr>
+                                      <tr class='info'>
+                                        <td>Grupo</td>
+                                        <td>2</td>
+                                      </tr>
+                                      <tr class='info'>
+                                        <td>Constancia</td>
+                                        <td>2</td>
+                                      </tr>
+                                      <tr class='info'>
+                                        <td>Estudio</td>
+                                        <td>4</td>
+                                      </tr>
+                                      <tr class='info'>
+                                        <td >Suerte</td>
+                                        <td >2</td>
+                                      </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php    
+	                        }
                         ?>
             </div><!--div cierre dech-->
         </div>

@@ -30,21 +30,8 @@
 	<link rel="shortcut icon" href="images/favicon.ico" />
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="profile/css/style.css" rel="stylesheet">
-	<script>
-		$('#myfile').change(function(){
-			$('#path').val($(this).val());
-		});
-	</script>
-
-	<script>
-	$(document).ready(function(){
-		$("#tablaMejoras").on('click','#botonComprar',function() {
-	    var borrarTr = $(this).closest("tr");
-	    borrarTr.remove();      
-		});
-	});
+	<script type="text/javascript" src="profile/js/jquery.js"></script>
 	
-	</script>
 	
 	
 	<?php

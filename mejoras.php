@@ -30,7 +30,7 @@
 	<link rel="shortcut icon" href="images/favicon.ico" />
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="mejoras/css/style.css" rel="stylesheet">
-
+	<script type="text/javascript" src="mejoras/js/jquery.js"></script>
 		<?php
 			session_start();
 			if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
@@ -50,30 +50,7 @@
 				exit;*/
 			}
 		?>
-		
-	<script>
-	$(document).ready(function(){
-		$("#tablaMejoras").on('click','#botonComprar',function() {
-	    var borrarTr = $(this).closest("tr");
-	    borrarTr.remove();      
-		});
-	});
 	
-	$(document).ready(function(){
-		$('formMejoras').on('click',function(){
-			var valor = $('#prueba').val();
-			alert(valor);
-		});
-	});
-	
-	
-	$(document).ready(function(){
-		window.setTimeout(function() { 
-			$(".alert-success").alert('close'); 
-			}, 2000);
-	});
-
-	</script>
 </head>
 
 
@@ -139,13 +116,14 @@
 			  <h1 class="tituloMejoras">Mejoras</h1>
 			  			
 			  <?php
-				  if(isset($res) && $res==1){
-					  echo"<div class='alert alert-success compraExito' id='success-alert'>";
-					  echo"  <button type='button' class='close' data-dismiss='alert'>x</button>";
-					  echo"  <strong>¡Éxito! </strong>";
-					  echo" La compra se ha añadido a tu personaje.";
-					  echo"</div>";
-				  }
+				  if(isset($res) && $res==1){?>
+					  <div class='alert alert-success compraExito' id='success-alert'>
+					    <button type='button' class='close' data-dismiss='alert'>x</button>
+					    <strong>¡Éxito! </strong>
+					   La compra se ha añadido a tu personaje.
+					  </div>
+				  <?php
+					  }
 				  $Con=new mejorasP();
 				  $Con -> mostrarMejoras();
 				  //$Con-> pruebaSqlite();									  

@@ -30,7 +30,7 @@
 	<link rel="shortcut icon" href="images/favicon.ico" />
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="examen/css/style.css" rel="stylesheet">
-
+	<script type="text/javascript" src="examen/js/jquery.js"></script>
 		<?php
 			session_start();
 			if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
@@ -51,34 +51,7 @@
 				*/
 			}
 		?>
-		<script lang="javascript">
-			$(document).ready(function() {
-				$('#ralentizar').hide();
-	            setTimeout(function(){
-					 $envio=$('#volverAAsignaturas').find('input[type=submit]');
-					 $envio.click();
-				}, 3000);
-			});
-			
-			
-			
-			var porcentaje =0;
-			var status;
-			 $(document).ready(function(){
-				
-				status = setInterval(function(){
-					porcentaje=porcentaje + 10;
-					$('#progreso').css("width",porcentaje+"%");
-					if(porcentaje==100) {
-						clearInterval(status);
-						$('#ralentizar').show();
-					}
-				}, 100);
-				
-			});
-			
-
-		</script>
+	
 </head>
 
 
